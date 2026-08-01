@@ -1,0 +1,33 @@
+@import "src/styles/variables";
+
+.security-page {
+  padding: 2rem;
+
+  &__title {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  &__form-container {
+    margin: 2rem 0;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .security-page {
+    padding: 1rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+}

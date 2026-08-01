@@ -1,0 +1,161 @@
+<div class="account-profile__signup-completion" data-testid="signup-completion-mode">
+  <h1 class="account-profile__title" data-testid="signup-completion-mode-title">Complete Your Account</h1>
+
+  @switch (signupCompletionState()) { @case ('loading') {
+  <ng-container *ngTemplateOutlet="loadingState"></ng-container>
+  } @case ('waiting_payment') {
+  <ng-container *ngTemplateOutlet="waitingPaymentState"></ng-container>
+  } @case ('ready_to_complete') {
+  <ng-container *ngTemplateOutlet="readyToCompleteState"></ng-container>
+  } @case ('already_completed') {
+  <ng-container *ngTemplateOutlet="alreadyCompletedState"></ng-container>
+  } @case ('canceled') {
+  <ng-container *ngTemplateOutlet="canceledState"></ng-container>
+  } @case ('not_found') {
+  <ng-container *ngTemplateOutlet="notFoundState"></ng-container>
+  } @case ('error') {
+  <ng-container *ngTemplateOutlet="errorState"></ng-container>
+  } }
+</div>
+
+<ng-template #loadingState>
+  <div class="account-profile__state account-profile__state--loading" data-testid="state-loading">
+    <div class="account-profile__spinner" data-testid="state-loading-spinner"></div>
+    <p class="account-profile__state-message" data-testid="state-loading-message">Loading your signup information...</p>
+  </div>
+</ng-template>
+
+<ng-template #waitingPaymentState>
+  <div class="account-profile__state account-profile__state--waiting" data-testid="state-waiting-payment">
+    <h2 class="account-profile__state-title">Payment Pending</h2>
+
+    @if (isPollingTimeout()) {
+    <!-- Timeout message -->
+    <p class="account-profile__state-message">Payment confirmation is taking longer than expected.</p>
+    <p class="account-profile__state-detail">
+      Your payment may still be processing. This can take a few minutes depending on your payment method.
+    </p>
+    } @else {
+    <!-- Normal waiting message -->
+    <p class="account-profile__state-message">We're waiting for payment confirmation from Stripe.</p>
+    <p class="account-profile__state-detail">This usually takes a few moments. Please wait...</p>
+    } @if (signupData(); as data) {
+    <div class="account-profile__state-info">
+      <p><strong>Email:</strong> {{ data.email }}</p>
+      <p><strong>Plan:</strong> {{ data.plan }}</p>
+    </div>
+    } @if (isPollingTimeout()) {
+    <!-- Retry button shown after timeout -->
+    <div class="account-profile__state-actions">
+      <button
+        type="button"
+        class="account-profile__button account-profile__button--primary"
+        data-testid="button-check-again"
+        (click)="onRetryCheck()"
+      >
+        Check Again
+      </button>
+
+      <button
+        (click)="navigateToSupport()"
+        type="button"
+        class="account-profile__button account-profile__button--secondary"
+        data-testid="button-contact-support-error"
+      >
+        Contact Support
+      </button>
+    </div>
+    } @else {
+    <!-- Show polling indicator -->
+    <div class="account-profile__polling-indicator" data-testid="polling-indicator">
+      <div class="account-profile__spinner account-profile__spinner--small"></div>
+      <span class="account-profile__polling-text">Checking payment status...</span>
+    </div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #readyToCompleteState>
+  <div class="account-profile__state account-profile__state--ready" data-testid="state-ready-to-complete">
+    <h2 class="account-profile__state-title" data-testid="state-ready-to-complete-title">Payment Confirmed!</h2>
+    <p class="account-profile__state-message" data-testid="state-ready-to-complete-message">
+      Your payment has been processed successfully.
+    </p>
+    <p class="account-profile__state-detail" data-testid="state-ready-to-complete-detail">Complete your account setup to get started.</p>
+
+    @if (signupData(); as data) {
+    <wil-complete-signup-form
+      data-testid="state-ready-to-complete-form"
+      [signupId]="signupData()!.signupId!"
+      [email]="signupData()!.email!"
+    ></wil-complete-signup-form>
+    }
+  </div>
+</ng-template>
+
+<ng-template #alreadyCompletedState>
+  <div class="account-profile__state account-profile__state--completed" data-testid="state-already-completed">
+    <h2 class="account-profile__state-title" data-testid="state-already-completed-title">Account Already Set Up</h2>
+    <p class="account-profile__state-message" data-testid="state-already-completed-message">This signup has already been completed.</p>
+  </div>
+</ng-template>
+
+<ng-template #canceledState>
+  <div class="account-profile__state account-profile__state--canceled" data-testid="state-canceled">
+    <h2 class="account-profile__state-title" data-testid="state-canceled-title">Signup Canceled</h2>
+    <p class="account-profile__state-message" data-testid="state-canceled-message">This signup has been canceled.</p>
+    <div class="account-profile__state-actions">
+      <button
+        (click)="navigateToSupport()"
+        type="button"
+        class="account-profile__button account-profile__button--secondary"
+        data-testid="state-canceled-button-contact-support-error"
+      >
+        Contact Support
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #notFoundState>
+  <div class="account-profile__state account-profile__state--not-found" data-testid="state-not-found">
+    <h2 class="account-profile__state-title" data-testid="state-not-found-title">Signup Not Found</h2>
+    <p class="account-profile__state-message" data-testid="state-not-found-message">We couldn't find a signup with this ID.</p>
+    <p class="account-profile__state-detail" data-testid="state-not-found-detail">
+      Please check your link or contact support if you need assistance.
+    </p>
+    @if (signupError()) {
+    <p class="account-profile__state-error" data-testid="state-not-found-error">{{ signupError() }}</p>
+    }
+    <div class="account-profile__state-actions">
+      <button
+        (click)="navigateToSupport()"
+        type="button"
+        class="account-profile__button account-profile__button--secondary"
+        data-testid="state-not-found-button-contact-support-error"
+      >
+        Contact Support
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #errorState>
+  <div class="account-profile__state account-profile__state--error" data-testid="state-error">
+    <h2 class="account-profile__state-title" data-testid="state-error-title">Something Went Wrong</h2>
+    <p class="account-profile__state-message" data-testid="state-error-message">We encountered an error while loading your signup.</p>
+    @if (signupError()) {
+    <p class="account-profile__state-error" data-testid="state-error-detail">{{ signupError() }}</p>
+    }
+    <div class="account-profile__state-actions">
+      <button
+        (click)="navigateToSupport()"
+        type="button"
+        class="account-profile__button account-profile__button--secondary"
+        data-testid="state-error-button-contact-support"
+      >
+        Contact Support
+      </button>
+    </div>
+  </div>
+</ng-template>

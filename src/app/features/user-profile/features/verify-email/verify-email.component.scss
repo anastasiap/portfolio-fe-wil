@@ -1,0 +1,91 @@
+.verify-email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+
+  &__container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    &--loading {
+      .verify-email__title {
+        color: var(--color-primary);
+      }
+    }
+
+    &--success {
+      .verify-email__title {
+        color: var(--color-success, #4caf50);
+      }
+    }
+
+    &--error {
+      .verify-email__title {
+        color: var(--color-error, #f44336);
+      }
+    }
+
+    &--warning {
+      .verify-email__title {
+        color: var(--color-error, #e5880b);
+      }
+    }
+  }
+
+  &__spinner {
+    color: var(--color-primary);
+  }
+
+  &__icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+
+    &--success {
+      color: var(--color-success, #4caf50);
+    }
+
+    &--error {
+      color: var(--color-error, #f44336);
+    }
+
+    &--warning {
+      color: var(--warning-color, #e5880b);
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__message {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--color-text-secondary, #666);
+    max-width: 400px;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 480px) {
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.download-modal {
+  width: 100%;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #353535;
+    font-family: "Didact Gothic", sans-serif;
+  }
+
+  &__close-btn {
+    flex-shrink: 0;
+  }
+
+  &__content {
+    padding: 1.5rem;
+  }
+}

@@ -1,0 +1,80 @@
+<div class="c-category" (mouseenter)="onToggleTools$.next(false)" (mouseleave)="onToggleTools$.next(true)">
+  <wil-category-toolbox
+    [ngClass]="{ 'hide-visually': isToolboxHidden$ | async, hide: noColumnGap() }"
+    [isEditMode]="isEditMode()"
+    [isColorEditMode]="isColorEditMode()"
+    (alert)="alert()"
+    (toggleColorPicker)="toggleColorPicker()"
+    (toggleEditMode)="toggleEditMode()"
+    (updateData)="updateData()"
+    data-testid="category-toolbox"
+  ></wil-category-toolbox>
+
+  @if (!isEditMode()) {
+    <div
+      class="c-category--display-mode"
+      role="button"
+      tabindex="0"
+      (click)="onToggleEditModeClick$.next()"
+      (keydown.enter)="onToggleEditModeClick$.next()"
+      (keydown.space)="onToggleEditModeClick$.next(); $event.preventDefault()"
+      data-testid="category-display-mode"
+    >
+      <div class="c-category__heading">
+        <h4 class="c-category__title" [style.color]="category().color" data-testid="category-title">
+          {{ category().name }}
+        </h4>
+        <div class="c-category__mark-wrapper" [style.backgroundColor]="category().color" data-testid="category-mark-wrapper">
+          <div class="c-category__mark" data-testid="category-score">{{ category().score }}</div>
+        </div>
+      </div>
+      <markdown class="c-category__description" [data]="category().description" data-testid="category-description"></markdown>
+    </div>
+  }
+
+  @if (isEditMode()) {
+    <div class="c-category--edit-mode" data-testid="category-edit-mode">
+      <form [formGroup]="categoryForm" id="categoryform">
+        <input
+          class="c-category__inputTitle"
+          [style.color]="catColor()"
+          formControlName="name"
+          maxlength="42"
+          data-testid="category-name-input"
+        />
+        <wil-note-markdown-editor
+          [ngStyle]="descInputHeight()"
+          [formControl]="categoryForm.controls.description"
+          [maxLength]="1000"
+          [showToolbar]="false"
+          [autoFocus]="true"
+          [showPlaceholderIcon]="false"
+          placeholder="What do the 1-10 grades mean?"
+          data-testid="category-description-editor"
+        >
+        </wil-note-markdown-editor>
+      </form>
+    </div>
+  }
+
+  @if (isColorEditMode()) {
+    <div class="c-color-picker" data-testid="category-color-picker">
+      <button
+        class="close-btn"
+        type="button"
+        aria-label="Close color picker"
+        (click)="closePalette()"
+        data-testid="category-color-picker-close"
+      >
+        x
+      </button>
+      @if (isBrowser) {
+        <color-chrome
+          [color]="category().color"
+          (onChangeComplete)="updateColor($event)"
+          data-testid="category-color-chrome"
+        ></color-chrome>
+      }
+    </div>
+  }
+</div>

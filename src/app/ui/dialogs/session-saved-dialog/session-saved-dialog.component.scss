@@ -1,0 +1,61 @@
+.session-saved-dialog {
+  &__message {
+    min-width: 350px;
+    padding: 24px 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  &__dashboard-link {
+    color: var(--primary-color, #007bff);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+
+    &:hover {
+      color: var(--primary-color-hover, #0056b3);
+      text-decoration: none;
+    }
+
+    &:focus {
+      outline: 2px solid var(--primary-color, #007bff);
+      outline-offset: 2px;
+    }
+  }
+
+  wil-cta-button {
+    margin: 16px 0;
+  }
+}
+
+mat-dialog-content {
+  overflow: visible;
+}
+
+mat-dialog-actions {
+  padding: 16px;
+  margin: 0;
+}
+
+
+@media (max-width: 599px) {
+  .session-saved-dialog {
+    &__message {
+      min-width: inherit;
+    }
+  }
+
+  mat-dialog-content {
+    min-width: inherit;
+  }
+
+  mat-dialog-actions {
+    gap: 15px;
+
+    wil-cta-button {
+      max-width: 100%;
+    }
+  }
+}

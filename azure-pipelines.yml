@@ -1,0 +1,124 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pr: none
+
+pool:
+  name: Azure Pipelines
+
+variables:
+  NODE_VERSION: "20.x"
+  IMAGE_REGISTRY: "ghcrt"
+  IMAGE_REPO: "test"
+  IMAGE_NAME: "$(IMAGE_REGISTRY)/$(IMAGE_REPO)"
+  IMAGE_TAG: "$(Build.BuildId)"
+  PUSH_IMAGE: "true"
+
+  DEV_SERVER_PATH: "apps/dev"
+  PROD_SERVER_PATH: "apps/prod"
+
+stages:
+  - stage: Dev
+    displayName: "Build, push and deploy to dev"
+    jobs:
+      - job: BuildAndDeployDev
+        displayName: "Build image and deploy to dev"
+        steps:
+          - checkout: self
+            clean: true
+
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "$(NODE_VERSION)"
+            displayName: "Use Node $(NODE_VERSION)"
+
+          - script: |
+              node --version
+              npm --version
+            displayName: "Verify Node/npm"
+
+          - script: |
+              npm ci
+            displayName: "Install dependencies"
+
+          - script: |
+              npm test -- --watch=false --browsers=ChromeHeadless
+            displayName: "Run unit tests"
+
+          - script: |
+              npm run lint
+            displayName: "Run lint"
+
+          - script: |
+              npm run build:ssr
+              npm run prerender
+            displayName: "Build SSR + prerender"
+
+          - powershell: |
+              Write-Host "Verifying build artifacts..."
+              if (Test-Path "Dockerfile") {
+                Write-Host "✅ Dockerfile exists"
+              } else {
+                throw "Dockerfile missing"
+              }
+            displayName: "Verify build artifacts"
+
+          - powershell: |
+              docker version
+              docker info
+            displayName: "Verify Docker"
+
+          - bash: |
+              IMAGE_ID=$(docker images "$(IMAGE_NAME):$(IMAGE_TAG)" -q)
+              if [ -z "$IMAGE_ID" ]; then
+                echo "Built image with BuildId tag not found"
+                exit 1
+              fi
+            displayName: "Build Docker image"
+
+          - bash: |
+              echo "Pushing $(IMAGE_NAME):$(IMAGE_TAG)"
+              docker push "$(IMAGE_NAME):$(IMAGE_TAG)"
+
+              echo "Pushing $(IMAGE_NAME):latest"
+              docker push "$(IMAGE_NAME):latest"
+
+              echo "Successfully pushed both tags"
+            displayName: "Push image to GHCR"
+            condition: and(succeeded(), eq(variables['PUSH_IMAGE'], 'true'))
+            env:
+              GHCR_PAT: $(GHCR_PAT)
+              GHCR_USERNAME: $(GHCR_USERNAME)
+
+          - task: SSH@0
+            displayName: "Deploy FE to dev"
+            condition: and(succeeded(), eq(variables['PUSH_IMAGE'], 'true'))
+            inputs:
+              sshEndpoint: "dev-ssh"
+              runOptions: "inline"
+              failOnStdErr: false
+              inline: |
+                docker compose ps
+
+  - stage: Prod
+    displayName: "Deploy to prod"
+    dependsOn: Dev
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToProd
+        displayName: "Deploy FE to prod"
+        environment: prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: SSH@0
+                  displayName: "Deploy FE to prod"
+                  inputs:
+                    sshEndpoint: "dev-ssh"
+                    runOptions: "inline"
+                    failOnStdErr: false
+                    inline: |
+                      docker compose ps

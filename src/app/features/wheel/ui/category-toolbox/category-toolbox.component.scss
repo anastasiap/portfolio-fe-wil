@@ -1,0 +1,56 @@
+.c-editing-icons {
+  max-width: 75px;
+  text-align: center;
+  margin-right: 10px;
+  margin-left: 5px;
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: #afafaf;
+
+  &__icon-wrapper {
+    margin: 0.2rem 0.3rem 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    label {
+      font-size: 0.6rem;
+      margin: 0 0.5rem;
+    }
+
+    &:hover {
+      color: #626262;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+
+  &__active {
+    color: #2ea538;
+  }
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 820px) {
+  .c-editing-icons {
+    max-width: 85px;
+
+    &__icon-wrapper {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+}

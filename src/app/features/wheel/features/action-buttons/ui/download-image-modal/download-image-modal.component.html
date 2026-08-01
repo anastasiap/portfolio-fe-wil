@@ -1,0 +1,131 @@
+<div class="download-modal" data-testid="download-modal">
+  <div class="download-modal__header" mat-dialog-title data-testid="download-modal-header">
+    <h3 id="download-modal-title" class="download-modal__title" data-testid="download-modal-title">{{ downloadModalTitle() }}</h3>
+    <button
+      mat-icon-button
+      class="download-modal__close-btn"
+      type="button"
+      (click)="closeDownloadModal()"
+      data-testid="download-modal-close"
+      aria-label="Close download modal"
+      >
+      <mat-icon data-testid="download-modal-close-icon">close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="download-modal__content" data-testid="download-modal-content">
+    <!-- Loading State -->
+    @if (currentDownloadModalState() === 'loading') {
+      <div
+        class="download-modal__loading"
+        data-testid="download-modal-loading"
+        role="status"
+        aria-live="polite"
+        >
+        <div class="download-modal__spinner-container" data-testid="download-modal-spinner-container">
+          <mat-spinner diameter="48" aria-label="Loading image" data-testid="download-modal-spinner"></mat-spinner>
+        </div>
+        <div class="download-modal__text-content" data-testid="download-modal-loading-text-content">
+          <h4 class="download-modal__loading-title" data-testid="download-modal-loading-title">Generating your image</h4>
+        </div>
+      </div>
+    }
+
+    <!-- Preview State Placeholder -->
+    @if (currentDownloadModalState() === 'preview') {
+      <div class="download-modal__preview" data-testid="download-modal-preview">
+        <div class="download-modal__biggest-change" data-testid="download-modal-biggest-change">
+          <!-- Comparison Preview Table -->
+          <div data-testid="download-modal-preview-summary">
+            <div class="download-modal__preview-label" data-testid="download-modal-preview-label">
+              This is what your next check-in could look like:
+            </div>
+            <div class="download-modal__change-item" data-testid="download-modal-change-item">
+              <span class="download-modal__change-label" data-testid="download-modal-change-label">Biggest change:</span>
+              <span data-testid="download-modal-change-finances">
+                <span class="download-modal__change-value" data-testid="download-modal-change-finances-value">Finances</span>
+                <mat-icon
+                  class="download-modal__biggest-change-icon--increase download-modal__biggest-change-icon"
+                  data-testid="download-modal-change-finances-icon"
+                  >
+                  trending_up
+                </mat-icon>
+              </span>
+              <span data-testid="download-modal-change-health">
+                <span class="download-modal__change-value" data-testid="download-modal-change-health-value">Health</span>
+                <mat-icon
+                  class="download-modal__biggest-change-icon--increase download-modal__biggest-change-icon"
+                  data-testid="download-modal-change-health-icon"
+                  >
+                  trending_up
+                </mat-icon>
+              </span>
+            </div>
+          </div>
+          <div class="download-modal__table-container" data-testid="download-modal-table">
+            <table class="download-modal__comparison-table" data-testid="download-modal-comparison-table">
+              <thead data-testid="download-modal-table-head">
+                <tr data-testid="download-modal-table-header-row">
+                  <th class="download-modal__table-header" data-testid="download-modal-table-header-category">Category</th>
+                  <th class="download-modal__table-header" data-testid="download-modal-table-header-current">Current session</th>
+                  <th class="download-modal__table-header" data-testid="download-modal-table-header-future">Next session</th>
+                  <th class="download-modal__table-header" data-testid="download-modal-table-header-delta">Delta</th>
+                </tr>
+              </thead>
+              <tbody data-testid="download-modal-table-body">
+                @for (category of currentCategories(); track trackByCategory($index, category)) {
+                  <tr
+                    class="download-modal__table-row"
+                    [attr.data-testid]="'download-modal-table-row-' + category.id"
+                    >
+                    <td
+                      class="download-modal__table-cell download-modal__table-cell--category"
+                      [attr.data-testid]="'download-modal-table-category-' + category.id"
+                      >
+                      <div
+                        class="download-modal__category-indicator"
+                        [style.background-color]="category.color"
+                        [attr.data-testid]="'download-modal-table-category-indicator-' + category.id"
+                      ></div>
+                      {{ category.name }}
+                    </td>
+                    <td
+                      class="download-modal__table-cell download-modal__table-cell--current"
+                      [attr.data-testid]="'download-modal-table-current-' + category.id"
+                      >
+                      {{ category.score }}
+                    </td>
+                    <td
+                      class="download-modal__table-cell download-modal__table-cell--future"
+                      [attr.data-testid]="'download-modal-table-future-' + category.id"
+                      >
+                      ?
+                    </td>
+                    <td
+                      class="download-modal__table-cell download-modal__table-cell--delta"
+                      [attr.data-testid]="'download-modal-table-delta-' + category.id"
+                      >
+                      0
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="download-modal__conversion" data-testid="download-modal-conversion">
+          <p class="download-modal__conversion-text" data-testid="download-modal-conversion-text">
+            Without this, you're just guessing if anything changed.
+          </p>
+          <wil-cta-button
+            (ctaClick)="navigateToPersonalPlan()"
+            [style]="'primary'"
+            size="small"
+            ctaText="Save your session with Free account"
+            data-testid="download-modal-cta"
+          ></wil-cta-button>
+        </div>
+      </div>
+    }
+  </mat-dialog-content>
+</div>

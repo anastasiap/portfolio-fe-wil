@@ -1,0 +1,97 @@
+<div class="login-modal-content" data-testid="login-modal-content">
+  <form [formGroup]="loginForm" class="login-modal-content__form" data-testid="login-form">
+    <!-- Email Field -->
+    <mat-form-field appearance="outline" class="login-modal-content__field">
+      <mat-label>Email address</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        data-testid="login-email-input"
+        autocomplete="email"
+      />
+      @if (showEmailError) {
+      <mat-error data-testid="login-email-error">
+        @if (loginForm.get('email')?.hasError('required')) { Email is required } @else if (loginForm.get('email')?.hasError('email')) {
+        Please enter a valid email address }
+      </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="login-modal-content__link-container">
+      <button type="button" class="login-modal-content__link" (click)="onForgotPassword()" data-testid="login-forgot-password-link">
+        Forgot password?
+      </button>
+    </div>
+
+    <mat-form-field appearance="outline" class="login-modal-content__field">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hidePassword() ? 'password' : 'text'"
+        formControlName="password"
+        placeholder="Enter your password"
+        data-testid="login-password-input"
+        autocomplete="current-password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="'Toggle password visibility'"
+        data-testid="login-password-toggle"
+      >
+        <mat-icon>{{ hidePassword() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      @if (showPasswordError) {
+      <mat-error data-testid="login-password-error"> Password is required </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Action Buttons -->
+    <div class="login-modal-content__actions">
+      <wil-cta-button
+        [loading]="false"
+        [disabled]="false"
+        [ctaText]="'Cancel'"
+        (ctaClick)="onCancel()"
+        [style]="'secondary'"
+        [size]="'large'"
+        data-testid="login-cancel-button"
+      ></wil-cta-button>
+
+      <wil-cta-button
+        [loading]="isLoading()"
+        [disabled]="!canSubmit"
+        [ctaText]="isLoading() ? 'Logging in...' : 'Login'"
+        (ctaClick)="onSubmit()"
+        [style]="'primary'"
+        [size]="'large'"
+        data-testid="login-submit-button"
+      ></wil-cta-button>
+    </div>
+
+    <!-- Error Banner -->
+    @if (errorMessage()) {
+    <div class="login-modal-content__error-banner" data-testid="login-error-banner" role="alert">
+      <mat-icon class="login-modal-content__error-icon">error_outline</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+    }
+
+    <!-- Not Registered Link -->
+    <div class="login-modal-content__footer">
+      <span class="login-modal-content__footer-text">Not registered yet?</span>
+      <button
+        type="button"
+        class="login-modal-content__link login-modal-content__link--inline"
+        (click)="onNotRegistered()"
+        data-testid="login-not-registered-link"
+      >
+       Try for free. Create an account
+      </button>
+    </div>
+  </form>
+</div>

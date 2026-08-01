@@ -1,0 +1,188 @@
+@import "src/styles/variables.scss";
+
+:host {
+  display: block;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 0 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  &__title {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      font-family: "Amatic SC", sans-serif;
+      font-weight: 600;
+      font-size: 2.2em;
+      margin: 0;
+      padding: 7px 0;
+      color: #353535;
+    }
+  }
+
+  &__logo-link {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__wheel-switcher {
+    @media (max-width: 768px) {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.1rem;
+
+    .logout-btn {
+      &:is(:last-child) {
+        margin-left: 20px;
+        max-width: 135px;
+      }
+    }
+
+    &--switcher-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    &--switcher-label {
+      font-size: 0.55rem;
+      color: #606266;
+      padding-right: 5px;
+      padding-bottom: 1px;
+    }
+  }
+
+  &__nav-link {
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    padding: 10px;
+    max-width: 200px;
+    text-decoration: none;
+    text-transform: lowercase;
+    border-radius: $radius-xs;
+    transition: all 0.2s ease;
+
+    &.accent {
+      background-color: rgb(249, 202, 36);
+    }
+
+    &:hover {
+      color: #1b6ec0;
+    }
+
+    &--active {
+      font-weight: 600;
+      color: #1b6ec0;
+    }
+  }
+
+  &__language-switcher {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0 15px 0;
+
+    mat-select {
+      border: 1px solid #f1f1f1;
+      border-radius: 5px;
+      padding: 5px 10px;
+      min-width: 80px;
+      font: 500 14px/20px "Didact Gothic", sans-serif;
+    }
+  }
+
+  // Hamburger Menu Button (Mobile Only)
+  &__hamburger {
+    display: none;
+
+    @media (max-width: 1024px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+    }
+  }
+
+}
+
+::ng-deep .cdk-overlay-pane {
+  .mat-pseudo-checkbox {
+    width: 16px;
+    height: 16px;
+  }
+
+  .mat-mdc-option {
+    padding: 10px 15px;
+    font-family: "Didact Gothic", sans-serif;
+    line-height: 1;
+    font-size: 14px;
+    font-weight: 400;
+    min-height: 16px;
+
+    .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after,
+    .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  :host {
+    margin-bottom: 20px;
+  }
+
+  .header {
+    &__title {
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    &__nav-link,
+    &__nav-button {
+      display: none;
+    }
+
+    &__navigation {
+      display: none; // Hide the entire desktop navigation container on mobile
+    }
+
+    &__language-switcher {
+      padding: 0 5px;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .header {
+    &__title {
+      h1 {
+        font-size: 1.2em;
+        padding-top: 15px;
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<main data-testid="about-me-main">
+  <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="25px">
+    <div fxFlex.xs="100%" fxFlex.sm="33.33%" fxFlex.gt-md="30%">
+      <div class="img-container" data-testid="about-me-img-container">
+        <img src="../../../assets/me.jpg" data-testid="about-me-img-photo" alt="Me" />
+        <button mat-button class="donate-button-container" data-testid="about-me-button-donate">
+          <div id="about-me-donate-button"></div>
+        </button>
+      </div>
+    </div>
+    <div fxFlex.xs="100%" fxFlex.sm="66.67%" fxFlex.gt-md="66%">
+      <article data-testid="about-me-article">
+        <h1 data-testid="about-me-heading-contact">Please, feel free to contact me</h1>
+        <ul data-testid="about-me-list-contact">
+          <li>If you desperately missing some functionality on the website, or just nice-to-haves, let me know.</li>
+          <li>If you need some features for your courses or business, let me know. I'm considering to implement big paid features.</li>
+          <li>Just say hi!</li>
+        </ul>
+        <p class="email">
+          <a target="_blank" onmouseover="this.href=this.href.replace(/x/g,'');" id="linkContainer" data-testid="about-me-link-email"> </a>
+        </p>
+
+        <p>I sincerely hope that you find this tool useful and it does make some positive impact on your life.</p>
+        <h3 data-testid="about-me-heading-myself">Shortly about myself</h3>
+        <p>My name is John. I'm an Angular Front-End Developer, or, putting it in a human language - I make websites.</p>
+        <h3 data-testid="about-me-heading-wheel">About Wheel of Life</h3>
+        <p>
+          I've created Wheel of Life for a big community of people, who tend to reflect on their life, try to make conscious decisions or
+          simply love studying.
+        </p>
+        <p>
+          As you've probably noticed there weren't any updates over the last few years. Unfortunately, having a day job, stops me from doing
+          any work on the website, simply because it can easily become a second full-time job, which would totally ruin a
+          work-life-happiness balance, we all strive for. At the same time, I seriously dislike that this project, which I really care for,
+          is being put on such a long stand-by.
+        </p>
+
+        <h3 data-testid="about-me-heading-reasons">Reasons</h3>
+        <p>Here I'm not just to moan, but explain why I made this, a long postponed, decision to add a DONATE button.</p>
+        <ul data-testid="about-me-list-reasons">
+          <li>
+            I hope that receiving a real confirmation from real people that this wee website actually does some good, will open more
+            opportunities for me to grow it further.
+          </li>
+          <li>
+            The website gets some heavy traffic from time to time, which does cost quite some money. It'd be nice to share the cost of
+            hosting, domain, etc, with someone else.
+          </li>
+          <li>
+            People have always been the main source of inspiration for me. I'd like to know more about what you'd like to see here, which
+            features are more important, how can I help you in general.
+          </li>
+        </ul>
+
+        <p>So, having said all that - please, do donate, every penny will be spent to make the website better.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<wil-donate data-testid="about-me-component-donate"></wil-donate>

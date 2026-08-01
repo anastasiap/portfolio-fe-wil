@@ -1,0 +1,174 @@
+@import "src/styles/variables";
+
+.wil-note-editor {
+  width: 93%;
+  border: 0px solid #e0e0e0;
+  border-radius: 0;
+  background: #ffffff;
+  font-family: inherit;
+
+  &__toolbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fafafa;
+    border-radius: 8px 8px 0 0;
+
+    &--disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    &-group {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    &-button {
+      width: 36px;
+      height: 36px;
+      min-width: 0;
+      transition: background-color 0.2s ease;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: #555;
+        transition: color 0.2s ease;
+      }
+
+      &:hover:not(:disabled) mat-icon {
+        color: #5e81ac;
+      }
+    }
+  }
+
+  &__container {
+    position: relative;
+    min-height: 120px;
+
+    &--disabled {
+      opacity: 0.6;
+      background-color: #f5f5f5;
+    }
+
+    &--no-toolbar {
+      border-radius: $radius-sm;
+    }
+  }
+
+  &__editor-instance {
+    width: 100%;
+    min-height: 120px;
+  }
+
+  &__textarea {
+    width: 100%;
+    min-height: 88px; // 120px - 2*16px padding
+    padding: 16px 0;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background: transparent;
+    resize: vertical;
+    transition: all 0.2s ease;
+    field-sizing: content;
+
+    &::placeholder {
+      color: #999;
+      font-style: italic;
+    }
+
+    &:disabled {
+      background-color: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    // Better scrollbar styling
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: $radius-xs;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: $radius-xs;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+  }
+
+  &__ssr-placeholder {
+    padding: 16px;
+    min-height: 88px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__placeholder-text {
+    color: #999;
+    font-style: italic;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  &__placeholder-overlay {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__placeholder-icon {
+    color: #999;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &__textarea--with-icon-placeholder {
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+
+  &__hint {
+    align-self: flex-end;
+    padding: 8px 12px;
+  }
+
+  &__char-count {
+    font-size: 12px;
+    color: #666;
+
+    .wil-note-editor__container--disabled + & {
+      color: #999;
+    }
+  }
+}

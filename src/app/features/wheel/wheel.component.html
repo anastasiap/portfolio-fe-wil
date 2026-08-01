@@ -1,0 +1,160 @@
+@if (mode$ | async; as mode) {
+  <main id="main-container" data-testid="wheel-component-container">
+    <div class="wheel-layout" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <!-- wheel column -->
+      <div
+        class="wheel-section"
+        fxFlex.xs="100%"
+        fxFlex.sm="100%"
+        fxFlex.md="100%"
+        [fxFlex.lg]="wheelSectionFlex()"
+        [fxFlex.gt-lg]="wheelSectionFlex()"
+        data-testid="wheel-component-wheel-section"
+        >
+        <wil-canvas [allowClick]="mode === 'view' && allowClick()" data-testid="wheel-component-canvas"></wil-canvas>
+      </div>
+      @if (showCategories()) {
+        <div
+          class="categories-section"
+          fxFlex.xs="100%"
+          fxFlex.sm="100%"
+          fxFlex.md="100%"
+          fxFlex.lg="50%"
+          fxFlex.gt-lg="50%"
+          data-testid="wheel-component-categories-section"
+          >
+          @if (type() !== 'noAuth' && mode === 'edit') {
+            <wil-wheel-name-form
+              [wheelName]="name()"
+              (nameChanged)="handleNameChange($event)"
+              data-testid="wheel-component-name-form"
+            ></wil-wheel-name-form>
+          }
+          @if (type() !== 'noAuth' && mode === 'view') {
+            <wil-focus></wil-focus>
+          }
+          <div class="categories-grid" fxLayout="row wrap">
+            @for (column of categoriesColumns$ | async; track column) {
+              <div
+                class="category-column"
+                fxFlex.xs="100%"
+                fxFlex.sm="100%"
+                fxFlex.md="47%"
+                fxFlex.lg="47%"
+                fxFlex.gt-lg="47%"
+                >
+                @for (category of column; track category) {
+                  <wil-category
+                    [wheelId]="wheelId()"
+                    [category]="category"
+                    [hasEditingOpen]="hasEditingOpen()"
+                    (editingOpened)="hasEditingOpen.set($event)"
+                  ></wil-category>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+    @if (allowClick()) {
+      <div fxLayout="row" fxLayoutAlign="center center">
+        @if (type() === 'personal' || type() === 'free') {
+          <wil-reflection-prompt
+            [isVisible]="(hasAllScores$ | async) === true"
+            data-testid="wheel-reflection-prompt"
+            >
+          </wil-reflection-prompt>
+        }
+      </div>
+    }
+    <div fxLayout="row" fxLayoutAlign="center center" class="copyright-notice" data-testid="wheel-copyright-notice-container">
+      <div id="print-only" class="animate__animated animate__pulse animate__infinite infinite" data-testid="wheel-copyright-notice">
+        Created by resourcesof.life
+      </div>
+    </div>
+  </main>
+}
+
+<aside>
+  @if ((mode$ | async) === 'edit') {
+    <div class="initial-hints" data-testid="wheel-initial-hints-container">
+      @if (categories$ | async; as categories) {
+        <ul>
+          @if ((hasUnsavedWheelChanges$ | async) || categories.length < 2) {
+            <h5 class="initial-hints__title">Hints</h5>
+          }
+          @if (name() === DEFAULT_NEW_WHEEL_NAME) {
+            <li data-testid="hint-update-wheel-title">
+              Update the <strong>Wheel title</strong> with your own unique name
+            </li>
+          }
+          @if (categories.length === 0) {
+            <li data-testid="hint-add-categories">
+              <strong>Add categories</strong> and edit by clicking on them to change titles and text or colors
+            </li>
+          }
+          @if (!hasEditingOpen() && categories.length === 1) {
+            <li data-testid="hint-hover">
+              <strong>Hover</strong> over a category name or click on it to edit
+            </li>
+          }
+          @if (hasEditingOpen()) {
+            <li data-testid="hint-confirm"><span class="confirm-accent">Confirm</span> changes for a category</li>
+          }
+          @if ((hasUnsavedWheelChanges$ | async) || categories.length < 2) {
+            <li data-testid="hint-save">
+              <strong>Save</strong> your changes or exit editing mode by clicking <strong>Done</strong>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+
+  @if (showActionButtons() && (mode$ | async); as mode) {
+    <!-- Action Buttons for non authenticated users -->
+    @if (type() === 'noAuth') {
+      <wil-action-buttons
+        [wheelId]="wheelId()"
+        [type]="'noAuth'"
+        data-testid="action-buttons-noauth"
+      ></wil-action-buttons>
+    }
+    <!-- Free and Personal Plan View Mode -->
+    @if ((type() === 'free' || type() === 'personal') && mode === 'view') {
+      <wil-action-buttons
+        [wheelId]="wheelId()"
+        [type]="'personal'"
+        data-testid="action-buttons-personal-view"
+      ></wil-action-buttons>
+    }
+    <!-- Free and Personal Plan Edit Mode -->
+    @if ((type() === 'free' || type() === 'personal') && mode === 'edit') {
+      <wil-action-buttons
+        [wheelId]="wheelId()"
+        [type]="'personal'"
+        (saveWheel)="handleWheelSave$.next()"
+        [disableSaveWheelButton]="disableSaveWheelButton() || hasEditingOpen()"
+        data-testid="action-buttons-personal-edit"
+      ></wil-action-buttons>
+    }
+    <!-- Professional View Mode -->
+    @if (type() === 'professional' && mode === 'view') {
+      <wil-action-buttons
+        [wheelId]="wheelId()"
+        [type]="'professional'"
+        data-testid="action-buttons-professional-view"
+      ></wil-action-buttons>
+    }
+    <!-- Professional Edit Mode -->
+    @if (type() === 'professional' && mode === 'edit') {
+      <wil-action-buttons
+        [wheelId]="wheelId()"
+        [type]="'professional'"
+        (saveWheel)="handleWheelSave$.next()"
+        data-testid="action-buttons-professional-edit"
+      ></wil-action-buttons>
+    }
+  }
+</aside>

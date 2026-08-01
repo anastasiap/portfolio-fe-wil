@@ -1,0 +1,77 @@
+<div class="modal white-label" data-testid="white-label-modal">
+  <div class="modal__header">
+    <h2 class="modal__title">Send Enquiry</h2>
+    <button class="modal__close" type="button" aria-label="Close" (click)="close()" data-testid="white-label-close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content" data-testid="focus-modal-content">
+    <form class="white-label" [formGroup]="form" autocomplete="off" data-testid="white-label">
+      @if (!success()) {
+        <fieldset class="white-label__fieldset" aria-label="Apply for plan">
+          <mat-form-field class="white-label__field">
+            <mat-label>Your e-mail</mat-label>
+            <input matInput type="email" formControlName="email" required aria-label="Email" data-testid="white-label-email" />
+          </mat-form-field>
+
+          <mat-form-field class="white-label__field">
+            <mat-label>Are there any specific details you’d like to know?</mat-label>
+            <textarea
+              matInput
+              formControlName="message"
+              rows="3"
+              aria-label="Message"
+              data-testid="white-label-message"
+              placeholder="Feel free to ask questions or share your requirements."
+            ></textarea>
+          </mat-form-field>
+
+          <!-- Honeypot field: should remain empty -->
+          <div style="display: none">
+            <label for="nickname">Nickname:</label>
+            <input type="text" id="nickname" name="nickname" formControlName="nickname" autocomplete="off" />
+          </div>
+        </fieldset>
+      }
+
+      @if (success()) {
+        <div class="white-label__success" data-testid="apply-success-message">
+          <p>✅ Thanks! I’ll get back to you shortly.</p>
+
+          <p class="note">
+            If you don’t hear back, feel free to send a direct email to
+            <span class="email"> <a target="_blank" onmouseover="this.href=this.href.replace(/x/g,'');" id="linkContainer"> </a> </span>, as
+            messages <s></s>sometimes end up in the spam folder.
+          </p>
+        </div>
+      }
+
+      <div class="white-label__actions">
+        @if (!success()) {
+          <wil-cta-button
+            [disabled]="form.invalid || submitted()"
+            [loading]="false"
+            [ctaText]="'Send Inquiry'"
+            (ctaClick)="onSubmit()"
+            [style]="'primary'"
+            [size]="'small'"
+            data-testid="white-label-send"
+          ></wil-cta-button>
+        }
+
+        @if (success()) {
+          <wil-cta-button
+            [disabled]="false"
+            [loading]="false"
+            ctaText="Close"
+            (ctaClick)="close()"
+            [style]="'primary'"
+            [size]="'small'"
+            data-testid="close-modal-btn"
+          ></wil-cta-button>
+        }
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+@import 'src/styles/variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 35px;
+
+  .empty-state {
+    // Smooth fade-in animation (300ms)
+    animation: fadeIn 300ms ease-out;
+
+    &__content {
+      padding: 40px 20px;
+    }
+
+    &__icon {
+      margin-bottom: 32px;
+    }
+
+    &__wheel-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #1b6ec0;
+      opacity: 0.7;
+    }
+
+    &__heading {
+      font-family: "Didact Gothic", sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #353535;
+      margin: 0 0 16px 0;
+      line-height: 1.3;
+    }
+
+    &__subtext {
+      font-family: "Didact Gothic", sans-serif;
+      font-size: 1.1rem;
+      color: #666;
+      margin: 0 0 40px 0;
+      line-height: 1.5;
+    }
+
+    &__actions {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+
+      .action-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+      }
+
+      .action-button__label {
+        margin-top: 15px;
+
+      }
+    }
+  }
+
+  // Action Button Styles (based on existing action-buttons component)
+  .action-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+
+    &__label {
+      font-family: "Didact Gothic", sans-serif;
+      display: block;
+      margin-top: 12px;
+      color: #353535;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: lowercase;
+      line-height: 1.2;
+    }
+  }
+
+  .button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: 2px solid #1b6ec0;
+      outline-offset: 2px;
+    }
+
+    &--primary {
+      background-color: #f3f3f3;
+      border: 0;
+
+      &:hover {
+        background-color: #1b6ec0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgb(27, 110, 192, 0.2);
+
+        mat-icon {
+          color: #fff;
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgb(27, 110, 192, 0.2);
+      }
+
+      mat-icon {
+        color: #353535;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        transition: color 0.2s ease;
+      }
+    }
+
+    &.circle {
+      border-radius: $radius-half;
+      padding: 15px;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

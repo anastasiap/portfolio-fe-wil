@@ -1,0 +1,301 @@
+<div class="promotional">
+  <main class="main" data-testid="landing-personal-plan">
+    <section class="hero">
+      <div class="eyebrow">{{ heroEyebrow() }}</div>
+      <h1 class="display">
+        See the hidden patterns <br />
+        in your life
+      </h1>
+      <div class="wrap hero-grid">
+        <div>
+          <!--        <p class="lead">-->
+          <!--          Rate the areas that matter, set a focus, leave a note for your future self, and slowly build a record you can trust more than-->
+          <!--          memory.-->
+          <!--        Turn reflections into analytical insights-->
+          <!--        and make smarter decisions based on how your life actually works.-->
+          <!--        </p>-->
+          <p class="lead">
+            One quick weekly check-in to map dependencies between your goals, actions and mindset. Rate the areas that matter, set a focus,
+            leave a note for your future self, and slowly build a record you can trust more than memory.
+          </p>
+          <div class="hero-actions">
+            @if (planType() === 'free') {
+              <wil-cta-button
+                [disabled]="false"
+                [loading]="false"
+                ctaText="Try Free Plan"
+                (ctaClick)="onPlanSelected('top')"
+                [style]="'primary'"
+                [size]="'large'"
+                data-testid="free-landing-cta"
+              ></wil-cta-button>
+            } @else {
+            <wil-cta-button
+              [disabled]="false"
+              [loading]="false"
+              ctaText="Try Personal Plan — $5.99/month"
+              (ctaClick)="onPlanSelected('top')"
+              [style]="'primary'"
+              [size]="'large'"
+              data-testid="personal-landing-cta"
+            ></wil-cta-button>
+            }
+          </div>
+          <div class="micro">
+            <span><i class="dot"></i> Create your own wheels</span>
+            <span><i class="dot"></i> Save reflections</span>
+            <span><i class="dot"></i> Track patterns over time</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <!--          <div class="label">Product UI placeholder — your wheel after a quick check-in</div>-->
+          <div class="wheel-demo">
+            <div class="hero-img"><img src="assets/hero.png" alt="Wheel of Life with set Focus for regular check-ins" /></div>
+            <div class="callout top"><strong>2 min</strong>daily or weekly check-in</div>
+            <div class="callout bottom"><strong>Focus</strong>Health + Work</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="outcomes">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span>What changes</span></div>
+            <h2 class="title">Less guessing. Better pattern recognition</h2>
+            <p class="section-text">A timeline turns separate moods into usable information</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="analytics-shell">
+              <div class="mini-placeholder">
+                <img src="assets/personal-landing/wheel-of-life-analytics-03.jpg" alt="Create personalized your own Wheel of Life" />
+              </div>
+            </div>
+
+            <div class="outcome-grid two">
+              <div class="outcome"><p>You stop guessing how you are doing.</p></div>
+              <div class="outcome"><p>You remember what mattered last week.</p></div>
+              <div class="outcome"><p>You notice patterns and unexpected dependencies.</p></div>
+              <div class="outcome"><p>You make more conscience decisions.</p></div>
+            </div>
+          </div>
+
+          <div class="card analytics-card">
+            <div class="analytics-header">
+              <!--            <p class="body-large" style="margin-bottom: 10px">A timeline turns separate moods into usable information.</p>-->
+              <!--            <p class="muted">-->
+              <!--              Placeholder for the analytics area. The final design can show a simplified trend chart and a short timeline list underneath.-->
+              <!--            </p>-->
+            </div>
+            <div class="analytics-shell">
+              <div class="mini-placeholder">
+                <img src="assets/personal-landing/wheel-of-life-analytics-04.jpg" alt="Create personalized your own Wheel of Life" />
+              </div>
+              <!--            <div class="legend">-->
+              <!--              <span><i class="i-blue"></i> Energy</span>-->
+              <!--              <span><i class="i-yellow"></i> Work</span>-->
+              <!--            </div>-->
+              <!--            <div class="mini-placeholder">UI placeholder — session list / reflections timeline</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span>How it works</span></div>
+            <h2 class="title">Five small actions. One useful record</h2>
+            <p class="section-text">Designed for repeat use to see the whole path</p>
+          </div>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-no">01</div>
+            <div>
+              <h3>Create your wheel</h3>
+              <p>
+                Choose the areas that matter to you: health, work, money, relationships, calm, confidence, or anything else. This becomes
+                your structure, so you are not forced into someone else’s idea of a balanced life.
+              </p>
+            </div>
+            <div class="mini-placeholder">
+              <img src="assets/personal-landing/wheel-of-life-01.jpg" alt="Create personalized your own Wheel of Life" />
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">02</div>
+            <div>
+              <h3>Set focus</h3>
+              <p>Pick one or two areas to pay attention to. Everything can't be fixed at once.</p>
+            </div>
+            <div class="mini-placeholder">
+              <img src="assets/personal-landing/wheel-of-life-02.jpg" alt="Create personalized your own Wheel of Life" />
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">03</div>
+            <div>
+              <h3>Do a quick check-in</h3>
+              <p>Rate each area from 1 to 10. It takes about two minutes and gives you a snapshot of how things actually feel right now.</p>
+            </div>
+            <div class="mini-placeholder">
+              <img src="assets/personal-landing/wheel-of-life-03.jpg" alt="Create personalized your own Wheel of Life" />
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">04</div>
+            <div>
+              <h3>Add a short reflection</h3>
+              <p>Write a few lines about what stood out. What affected the scores. What you want to remember later.</p>
+            </div>
+            <div class="mini-placeholder">
+              <img src="assets/personal-landing/wheel-of-life-04.jpg" alt="Create personalized your own Wheel of Life" />
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">05</div>
+            <div>
+              <h3>See patterns over time</h3>
+              <p>
+                Your check-ins turn into a timeline. You begin to notice what improves, what drops under pressure, and what keeps repeating.
+              </p>
+            </div>
+            <div class="mini-placeholder">
+              <img src="assets/personal-landing/wheel-of-life-analytics-01.jpg" alt="Create personalized your own Wheel of Life" />
+            </div>
+          </article>
+        </div>
+
+        <div class="steps-note left">Repeat for events, thoughts and feelings to become a comprehensive united picture.</div>
+        <div class="steps-note right">Go deeper by creating detailed Wheels for important areas, eg Fitness, Career etc.</div>
+      </div>
+    </section>
+
+    <!--  <section>-->
+    <!--    <div class="wrap">-->
+    <!--      <div class="section-head">-->
+    <!--        <div>-->
+    <!--          <div class="kicker">What actually happens</div>-->
+    <!--          <h2 class="title">Not a system to manage your life. A way to notice it.</h2>-->
+    <!--          <p class="section-text">-->
+    <!--            Open the app, score a few areas, and immediately see where things feel strong, flat, or slipping away. Designed for repeat use,-->
+    <!--            to see the whole path.-->
+    <!--          </p>-->
+    <!--        </div>-->
+    <!--      </div>-->
+
+    <!--      <div class="two-col">-->
+    <!--        <div class="card">-->
+    <!--          <p class="body-large">-->
+    <!--            The useful part is the habit of looking at your life in the same format, often enough to spot what-->
+    <!--            is changing.-->
+    <!--          </p>-->
+    <!--          <p class="muted">It gives you a comparable record.</p>-->
+    <!--          <div class="score-grid">-->
+    <!--            <div class="score"><span>Health</span><strong>7</strong></div>-->
+    <!--            <div class="score"><span>Work</span><strong>5</strong></div>-->
+    <!--            <div class="score"><span>Relationships</span><strong>6</strong></div>-->
+    <!--            <div class="score"><span>Energy</span><strong>4</strong></div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+
+    <!--        <div class="card">-->
+    <!--          <div class="placeholder" style="min-height: 100%">-->
+    <!--            <div class="label">Placeholder — before / after scoring state</div>-->
+    <!--            <div class="mini-placeholder" style="min-height: 260px">Empty wheel → Filled wheel comparison</div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--  </section>-->
+
+
+
+<!--    <section id="why">-->
+<!--      <div class="wrap">-->
+<!--        <div class="section-head">-->
+<!--          <div>-->
+<!--            <div class="kicker"><span>Why this works</span></div>-->
+<!--            <h2 class="title">People keep using it <br />because it answers a practical problem</h2>-->
+<!--            <p class="section-text">-->
+<!--              Most people do not lack thoughts about their life. They lack a consistent way to observe it. The Wheel works as set scale-->
+<!--            </p>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="why-grid four">-->
+<!--          <div class="reason">-->
+<!--            <div>-->
+<!--              <div class="stat">01</div>-->
+<!--              <p>Memory is unreliable. A saved session gives you a record instead of a vague impressions.</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="reason">-->
+<!--            <div>-->
+<!--              <div class="stat">02</div>-->
+<!--              <p>You think nothing changes — until the timeline shows otherwise, acting as a proof of your progress.</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="reason">-->
+<!--            <div>-->
+<!--              <div class="stat">03</div>-->
+<!--              <p>Small shifts become visible only when you look in the same format more than once.</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="reason">-->
+<!--            <div>-->
+<!--              <div class="stat">04</div>-->
+<!--              <p>It enhances self-analysis with actual data - something concrete enough to act on.</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+
+    <section class="cta" id="start">
+      <div class="wrap">
+        <div class="cta-box">
+          <div class="kicker"><span>{{ planLabel() }} Plan</span></div>
+          <h2 class="title">Try it for yourself</h2>
+          <p>{{ ctaDescription() }}</p>
+          <div style="max-width: 450px; margin: 0 auto">
+            @if (planType() === 'free') {
+              <wil-cta-button
+                [disabled]="false"
+                [loading]="false"
+                ctaText="Start Free Plan"
+                (ctaClick)="onPlanSelected('bottom')"
+                [style]="'primary'"
+                [size]="'large'"
+                data-testid="free-landing-cta"
+              ></wil-cta-button>
+            } @else {
+            <wil-cta-button
+              [disabled]="false"
+              [loading]="false"
+              ctaText="Start Personal Plan — $5.99/month"
+              (ctaClick)="onPlanSelected('bottom')"
+              [style]="'primary'"
+              [size]="'large'"
+              data-testid="personal-landing-cta"
+            ></wil-cta-button>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

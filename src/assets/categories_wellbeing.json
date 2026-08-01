@@ -1,0 +1,52 @@
+{
+  "en": [
+    {
+      "color": "#ff6b6b",
+      "description": "Physical and mental wellbeing",
+      "id": "0",
+      "score": 0,
+      "name": "Health",
+      "order": 1
+    },
+    {
+      "color": "#4ecdc4",
+      "description": "Professional development and work satisfaction",
+      "id": "1",
+      "score": 0,
+      "name": "Career",
+      "order": 2
+    },
+    {
+      "color": "#45b7d1",
+      "description": "Family, friends, and social connections",
+      "id": "2",
+      "score": 0,
+      "name": "Relationships",
+      "order": 3
+    },
+    {
+      "color": "#f9ca24",
+      "description": "Financial stability and planning",
+      "id": "3",
+      "score": 0,
+      "name": "Finances",
+      "order": 4
+    },
+    {
+      "color": "#6c5ce7",
+      "description": "Learning and self-improvement",
+      "id": "4",
+      "score": 0,
+      "name": "Personal Growth",
+      "order": 5
+    },
+    {
+      "color": "#a29bfe",
+      "description": "Hobbies and leisure activities",
+      "id": "5",
+      "score": 0,
+      "name": "Recreation",
+      "order": 6
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+interface DeleteAccountDialogResult {
+  confirmed: boolean;
+}

@@ -1,0 +1,77 @@
+<div class="modal focus-modal" data-testid="modal-focus">
+  <div class="modal__header">
+    <h2 class="modal__title">Choose Focus Areas</h2>
+    <button type="button" class="modal__close" (click)="onCancel()" aria-label="Close modal" data-testid="btn-close-focus">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content focus-modal__body" data-testid="focus-modal-content">
+    <p class="focus-modal__description">Select the categories you want to focus on for improvement:</p>
+
+    @if (categoriesLoading$ | async) {
+      <div class="focus-modal__loading" data-testid="focus-loading">
+        <p>Loading categories...</p>
+      </div>
+    } @else {
+      @if (categories$ | async; as categories) {
+        <div class="focus-modal__categories">
+          @for (category of categories; track category.id) {
+            <label
+              class="focus-modal__category"
+              [class.focus-modal__category--selected]="isSelected(category.id)"
+              data-testid="focus-category-item"
+            >
+              <input
+                type="checkbox"
+                class="focus-modal__checkbox"
+                [checked]="isSelected(category.id)"
+                (change)="onSelectionChange(category.id, $event)"
+                [attr.data-testid]="'focus-checkbox-' + category.id"
+              />
+              <div class="focus-modal__category-content">
+                <div
+                  class="focus-modal__category-color"
+                  [style.background-color]="category.color"
+                  [attr.data-testid]="'focus-color-' + category.id"
+                ></div>
+                <div class="focus-modal__category-info">
+                  <span class="focus-modal__category-name" [attr.data-testid]="'focus-name-' + category.id">
+                    {{ category.name }}
+                  </span>
+                  @if (category.description) {
+                    <span class="focus-modal__category-desc" [attr.data-testid]="'focus-desc-' + category.id">
+                      {{ category.description }}
+                    </span>
+                  }
+                </div>
+              </div>
+            </label>
+          } @empty {
+            <div class="focus-modal__empty" data-testid="focus-empty-state">
+              <p>No categories available.</p>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+
+  <div class="focus-modal__footer">
+    <wil-cta-button
+      [ctaText]="'Cancel'"
+      (ctaClick)="onCancel()"
+      [style]="'secondary'"
+      [size]="'small'"
+      data-testid="focus-modal-cancel-button"
+    ></wil-cta-button>
+
+    <wil-cta-button
+      [ctaText]="'Save Focus'"
+      (ctaClick)="onSave()"
+      [style]="'primary'"
+      [size]="'small'"
+      data-testid="focus-modal-save-focus-button"
+    ></wil-cta-button>
+  </div>
+</div>

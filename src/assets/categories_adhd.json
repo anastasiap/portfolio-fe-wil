@@ -1,0 +1,68 @@
+{
+  "en": [
+    {
+      "color": "#ff6b6b",
+      "description": "Do you often start a task but quickly drift away? Is it hard to finish reading an email or document without losing track?",
+      "id": "0",
+      "score": 0,
+      "name": "Focus and Concentration",
+      "order": 1
+    },
+    {
+      "color": "#4ecdc4",
+      "description": "Do deadlines slip through your fingers? Do you often misplace documents, items, or details?",
+      "id": "1",
+      "score": 0,
+      "name": "Organization and Planning",
+      "order": 2
+    },
+    {
+      "color": "#45b7d1",
+      "description": "Do you tend to interrupt conversations, make quick decisions, or shop impulsively?",
+      "id": "2",
+      "score": 0,
+      "name": "Impulsivity",
+      "order": 3
+    },
+    {
+      "color": "#f9ca24",
+      "description": "Do you forget where you put your keys or what you planned to do five minutes ago?",
+      "id": "3",
+      "score": 0,
+      "name": "Everyday Memory",
+      "order": 4
+    },
+    {
+      "color": "#6c5ce7",
+      "description": "Do emotions sometimes overwhelm you to the point where it’s hard to continue working or talking?",
+      "id": "4",
+      "score": 0,
+      "name": "Emotional Regulation",
+      "order": 5
+    },
+    {
+      "color": "#a29bfe",
+      "description": "Do you leave many projects unfinished? Do you lose interest halfway through?",
+      "id": "5",
+      "score": 0,
+      "name": "Motivation and Finishing Tasks",
+      "order": 6
+    },
+    {
+      "color": "#e17055",
+      "description": "Do you struggle with falling asleep? Do you feel constant fatigue or unpredictable bursts of energy?",
+      "id": "6",
+      "score": 0,
+      "name": "Sleep and Energy",
+      "order": 7
+    },
+    {
+      "color": "#00b894",
+      "description": "Do relationships get strained because of forgetfulness, disorganization, or impulsivity?",
+      "id": "7",
+      "score": 0,
+      "name": "Social Interactions",
+      "order": 8
+    }
+  ]
+}

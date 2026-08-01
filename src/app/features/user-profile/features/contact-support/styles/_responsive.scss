@@ -1,0 +1,27 @@
+@media (max-width: 768px) {
+  .contact-support {
+    padding: 1rem;
+
+    &__title {
+      font-size: 1.75rem;
+    }
+
+    &__file-drop-zone {
+      padding: 1.5rem;
+    }
+
+    &__upload-icon {
+      font-size: 2.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    &__actions {
+      justify-content: stretch;
+    }
+
+    &__submit-button {
+      width: 100%;
+    }
+  }
+}

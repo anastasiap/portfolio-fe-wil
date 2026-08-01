@@ -1,0 +1,26 @@
+.contact-support {
+  &__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: var(--color-warning-light, rgba(251, 188, 5, 0.1));
+    border: 1px solid var(--color-warning-border, #fbbf05);
+    border-radius: 6px;
+    margin: 1rem 0;
+  }
+
+  &__consent-icon {
+    color: var(--color-warning, #f57c00);
+    font-size: 1.25rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+  }
+
+  &__consent-text {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #5a6c7d);
+    line-height: 1.5;
+  }
+}

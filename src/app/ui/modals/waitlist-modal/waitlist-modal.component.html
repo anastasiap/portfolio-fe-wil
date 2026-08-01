@@ -1,0 +1,61 @@
+<div class="modal waitlist-modal" data-testid="waitlist-modal-container">
+  <div class="modal__header" data-testid="waitlist-modal-header">
+    <div>
+      <div class="modal__title-container">
+        <mat-icon class="modal__lock-icon" data-testid="waitlist-modal-lock-icon">lock</mat-icon>
+        <h2 class="modal__title" data-testid="waitlist-modal-title">{{ planType }} plan</h2>
+      </div>
+      <p class="modal__subtitle" data-testid="waitlist-modal-subtitle">I'll let you know when {{ planType }} will be available.</p>
+    </div>
+
+    <button class="modal__close" type="button" (click)="onClose()" data-testid="waitlist-modal-close-button" aria-label="Close modal">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content" data-testid="waitlist-modal-content">
+
+    @if (!isSubmitted() && !hasError()) {
+    <form [formGroup]="waitlistForm" class="waitlist-modal__form" data-testid="waitlist-modal-form">
+      <mat-form-field appearance="outline" class="waitlist-modal__field">
+        <mat-label>Email address</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Enter your email" data-testid="waitlist-modal-email-input" />
+        @if (waitlistForm.get('email')?.invalid && waitlistForm.get('email')?.touched) {
+        <mat-error data-testid="waitlist-modal-email-error"> Please enter a valid email address </mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Hidden fields -->
+      <input type="hidden" formControlName="plan" />
+      <input type="text" formControlName="nickname" style="display: none" tabindex="-1" autocomplete="off" />
+
+      <wil-cta-button
+        [disabled]="!isFormValid || isLoading()"
+        [loading]="isLoading()"
+        data-testid="waitlist-modal-submit-button"
+        (ctaClick)="onSubmit()"
+        [style]="'primary'"
+        [size]="'small'"
+        ctaText="Yes, let me know"
+      ></wil-cta-button>
+    </form>
+    } @if (isSubmitted() && !hasError()) {
+
+    <div class="waitlist-modal__success" data-testid="waitlist-modal-success">
+      <mat-icon class="waitlist-modal__success-icon">check_circle</mat-icon>
+      <h3 class="waitlist-modal__success-title">Thanks for the interest!</h3>
+      <p class="waitlist-modal__success-message">We'll notify you when the {{ planType.toLowerCase() }} plan becomes available.</p>
+      <button type="button" class="waitlist-modal__close-final-button" (click)="onClose()" data-testid="waitlist-modal-close-final-button">
+        Close
+      </button>
+    </div>
+    } @if (hasError()) {
+    <div class="waitlist-modal__error" data-testid="waitlist-modal-error">
+      Something went wrong. Please, feel free to send a direct email to
+      <span class="email">
+        <a target="_blank" onmouseover="this.href=this.href.replace(/x/g,'');" id="linkContainer"> </a>
+      </span>
+    </div>
+    }
+  </div>
+</div>

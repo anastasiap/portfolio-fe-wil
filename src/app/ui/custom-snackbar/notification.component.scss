@@ -1,0 +1,26 @@
+.custom-snackbar {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  margin-right: 8px;
+}
+
+// Global snackbar styles
+::ng-deep {
+  .success-snackbar, .success-icon {
+    --mdc-snackbar-container-color: #4caf50;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  .error-snackbar, .error-icon {
+    --mdc-snackbar-container-color: #f44336;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+
+  .info-snackbar {
+    --mdc-snackbar-container-color: $current-primary-blue;
+    --mdc-snackbar-supporting-text-color: white;
+  }
+}

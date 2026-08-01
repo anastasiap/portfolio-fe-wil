@@ -1,0 +1,93 @@
+<div class="delete-account-dialog">
+  <!-- Step 1: Warning -->
+  @if (step() === 1) {
+    <div class="delete-account-dialog__step1">
+      <h2 mat-dialog-title>Delete your account?</h2>
+      <mat-dialog-content>
+        <ul class="delete-account-dialog__warnings">
+          <li>This action is <strong>irreversible</strong> - your account and all data will be permanently deleted</li>
+          <li>You will be <strong>logged out</strong> immediately after deletion</li>
+          <li>Any data downloads should be completed <strong>before</strong> proceeding</li>
+          <li>Your subscription and billing history will be permanently removed</li>
+        </ul>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button
+          mat-button
+          data-testid="cancel-button"
+          (click)="onCancel()"
+          >
+          Cancel
+        </button>
+        <button
+          mat-button
+          color="warn"
+          data-testid="continue-button"
+          (click)="onContinue()"
+          >
+          Continue
+        </button>
+      </mat-dialog-actions>
+    </div>
+  }
+
+  <!-- Step 2: Final Confirmation -->
+  @if (step() === 2) {
+    <div class="delete-account-dialog__step2">
+      <h2 mat-dialog-title>Final confirmation</h2>
+      <mat-dialog-content>
+        <form [formGroup]="confirmForm" class="delete-account-dialog__form">
+          <mat-checkbox
+            formControlName="confirmPermanent"
+            data-testid="confirm-permanent-checkbox"
+            class="delete-account-dialog__checkbox"
+            >
+            I understand this action is permanent
+          </mat-checkbox>
+          <mat-form-field appearance="outline" class="delete-account-dialog__text-field">
+            <mat-label>Type DELETE to confirm</mat-label>
+            <input
+              matInput
+              formControlName="typedPhrase"
+              data-testid="confirm-delete-input"
+              placeholder="DELETE"
+              />
+              <mat-hint>You must type exactly: <strong>DELETE</strong></mat-hint>
+            </mat-form-field>
+          </form>
+          <!-- Error display -->
+          @if (error$ | async; as error) {
+            <div class="delete-account-dialog__error" data-testid="error-message">
+              <p>{{ error.message || 'An error occurred. Please try again.' }}</p>
+            </div>
+          }
+        </mat-dialog-content>
+        <!-- Loading bar -->
+        @if (isLoading$ | async) {
+          <mat-progress-bar
+            mode="indeterminate"
+            data-testid="delete-progress-bar"
+          ></mat-progress-bar>
+        }
+        <mat-dialog-actions align="end">
+          <button
+            mat-button
+            data-testid="back-button"
+            (click)="onBack()"
+            [disabled]="(isLoading$ | async) || false"
+            >
+            Back
+          </button>
+          <button
+            mat-button
+            color="warn"
+            data-testid="delete-account-button"
+            (click)="onConfirmDelete()"
+            [disabled]="!confirmForm.valid || (isLoading$ | async)"
+            >
+            Delete account
+          </button>
+        </mat-dialog-actions>
+      </div>
+    }
+  </div>

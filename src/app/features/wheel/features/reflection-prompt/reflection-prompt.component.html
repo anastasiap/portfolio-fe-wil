@@ -1,0 +1,20 @@
+<div class="wil-reflection-prompt" [@slideIn]="getAnimationState()" data-testid="reflection-prompt">
+  <div class="wil-reflection-prompt__content">
+    <div class="wil-reflection-prompt__label-container" data-testid="prompt-label">
+      <span class="wil-reflection-prompt__label">Reflection</span>
+      <span class="wil-reflection-prompt__item">{{ currentPrompt() }}</span>
+    </div>
+
+    <wil-note-markdown-editor
+      [formControl]="notesControl"
+      [maxLength]="10000"
+      [showToolbar]="false"
+      [autoFocus]="shouldAutoFocus()"
+      [showPlaceholderIcon]="true"
+      placeholder="Right now I'm noticing that…"
+      (blurField)="onEditorBlur()"
+      data-testid="reflection-editor"
+    >
+    </wil-note-markdown-editor>
+  </div>
+</div>

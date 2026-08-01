@@ -1,0 +1,45 @@
+<div class="legal-doc-page" data-testid="legal-doc-page">
+  <!-- Page Header -->
+  <div class="legal-doc-page__header">
+    <h1 class="legal-doc-page__title" data-testid="page-title">{{ title() }}</h1>
+    @if (lastUpdated()) {
+    <p class="legal-doc-page__last-updated" data-testid="last-updated">Last updated: {{ lastUpdated() }}</p>
+    }
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="legal-doc-page__loading" data-testid="loading-state">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Loading document...</p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (hasError() && !isLoading()) {
+  <mat-card class="legal-doc-page__error" data-testid="error-state">
+    <mat-card-content>
+      <div class="legal-doc-page__error-content">
+        <mat-icon color="warn" class="legal-doc-page__error-icon">error</mat-icon>
+        <h3>{{ errorMessage() }}</h3>
+        <p>We're sorry, but the legal document could not be loaded at this time.</p>
+        <button mat-raised-button color="primary" (click)="onReload()" data-testid="reload-button">
+          <mat-icon>refresh</mat-icon>
+          Try Again
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  }
+
+  <!-- Content -->
+  @if (content() && !isLoading() && !hasError()) {
+  <div class="legal-doc-page__content" data-testid="document-content">
+    <mat-card>
+      <mat-card-content>
+        <markdown [data]="content()" class="legal-doc-page__markdown"></markdown>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  }
+</div>

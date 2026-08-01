@@ -1,0 +1,96 @@
+<div class="wil-note-editor">
+  <!-- Toolbar (optional) -->
+  @if (showToolbar() && isBrowser) {
+    <div class="wil-note-editor__toolbar" [class.wil-note-editor__toolbar--disabled]="isDisabled()">
+      <div class="wil-note-editor__toolbar-group">
+        <div>
+          <button
+            mat-icon-button
+            type="button"
+            class="wil-note-editor__toolbar-button"
+            [disabled]="isDisabled()"
+            (click)="toggleBold()"
+            matTooltip="Bold (Ctrl+B)"
+            data-testid="bold-button"
+            >
+            <mat-icon>format_bold</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            type="button"
+            class="wil-note-editor__toolbar-button"
+            [disabled]="isDisabled()"
+            (click)="toggleItalic()"
+            matTooltip="Italic (Ctrl+I)"
+            data-testid="italic-button"
+            >
+            <mat-icon>format_italic</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            type="button"
+            class="wil-note-editor__toolbar-button"
+            [disabled]="isDisabled()"
+            (click)="toggleBulletList()"
+            matTooltip="Bullet list"
+            data-testid="bullet-list-button"
+            >
+            <mat-icon>format_list_bulleted</mat-icon>
+          </button>
+        </div>
+        @if (maxLength() && isBrowser) {
+          <div class="wil-note-editor__hint">
+            <span class="wil-note-editor__char-count" data-testid="char-count"> {{ currentValue.length }} / {{ maxLength() }} </span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Editor Container -->
+  <div
+    class="wil-note-editor__container"
+    [class.wil-note-editor__container--disabled]="isDisabled()"
+    [class.wil-note-editor__container--no-toolbar]="!showToolbar()"
+    data-testid="editor-container"
+    >
+    <!-- Custom placeholder overlay with icon -->
+    @if (isBrowser && !currentValue && showPlaceholderIcon()) {
+      <div
+        class="wil-note-editor__placeholder-overlay"
+        data-testid="placeholder-overlay"
+        >
+        <mat-icon class="wil-note-editor__placeholder-icon" aria-hidden="true">edit</mat-icon>
+        <span class="wil-note-editor__placeholder-text">{{ placeholder() }}</span>
+      </div>
+    }
+
+    <!-- Browser environment: Textarea for MVP -->
+    @if (isBrowser) {
+      <div #editorContainer class="wil-note-editor__editor-instance" data-testid="editor-instance">
+        <textarea
+          #textareaEditor
+          class="wil-note-editor__textarea"
+          [class.wil-note-editor__textarea--with-icon-placeholder]="showPlaceholderIcon()"
+          [value]="currentValue"
+          [disabled]="isDisabled()"
+          [placeholder]="showPlaceholderIcon() ? '' : placeholder()"
+          [maxLength]="maxLength() || null"
+          (input)="onContentChange($event)"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          (keydown)="onKeyDown($event)"
+          data-testid="textarea-editor"
+          >
+        </textarea>
+      </div>
+    }
+
+    <!-- SSR/Prerender fallback: non-interactive placeholder -->
+    @if (!isBrowser) {
+      <div class="wil-note-editor__ssr-placeholder" data-testid="ssr-placeholder">
+        <p class="wil-note-editor__placeholder-text">{{ placeholder() }}</p>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,179 @@
+<div class="subscription-billing" data-testid="subscription-billing-section">
+  <h1 class="subscription-billing__title">Subscription & Billing</h1>
+
+  <!-- Loading state -->
+  @if (loading$ | async) {
+    <div class="subscription-billing__loading" data-testid="loading-state">
+      <div class="loading-skeleton">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (error$ | async; as error) {
+    <div class="subscription-billing__error" data-testid="error-state">
+      <div class="error-card">
+        <h3 class="error-card__title">Failed to load subscription data</h3>
+        <p class="error-card__message">{{ error.message }}</p>
+        <button class="error-card__retry-btn" data-testid="retry-button" (click)="onRetry()">Retry</button>
+        <button
+          (click)="navigateToSupport()"
+          type="button"
+          class="account-profile__button account-profile__button--secondary"
+          data-testid="button-contact-support-error"
+        >
+          Contact Support
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Subscription data -->
+  @if (subscriptionViewModel$ | async; as vm) {
+    <div class="subscription-billing__content" data-testid="subscription-content">
+      <!-- Payment issue warning -->
+      @if (vm.hasPaymentIssue) {
+        <div class="subscription-billing__warning" data-testid="payment-issue-warning">
+          <div class="warning-banner">
+            <span class="warning-banner__icon">&#9888;&#65039;</span>
+            <span class="warning-banner__text">There's an issue with your payment method. Please update your payment details.</span>
+          </div>
+        </div>
+      }
+
+      <div class="subscription-billing__cards">
+        <!-- Current Plan Card -->
+        <div class="plan-card" data-testid="current-plan-card">
+          <h2 class="plan-card__title">Current plan</h2>
+
+          <div class="plan-card__content">
+            <div class="plan-info">
+              <h3 class="plan-info__name" data-testid="plan-name">{{ vm.subscription.planLabel }}</h3>
+              <div class="plan-info__status" [class]="'plan-info__status--' + vm.subscription.status" data-testid="plan-status">
+                {{ vm.statusText }}
+              </div>
+            </div>
+
+            <div class="plan-pricing" data-testid="plan-pricing">
+              <div class="plan-pricing__price">{{ vm.priceWithInterval }}</div>
+              @if (vm.renewalText) {
+                <div class="plan-pricing__renewal" data-testid="renewal-text">
+                  {{ vm.renewalText }}
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- What's Included Card -->
+        <div class="features-card" data-testid="features-card">
+          <h2 class="features-card__title">What's included</h2>
+
+          <div class="features-card__content">
+            @if (vm.subscription.entitlementsLabels.length > 0) {
+              <ul class="features-list" data-testid="features-list">
+                @for (entitlement of vm.subscription.entitlementsLabels; track entitlement) {
+                  <li class="features-list__item" data-testid="feature-item">
+                    {{ entitlement }}
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="features-card__no-features" data-testid="no-features">No additional features enabled.</p>
+            }
+          </div>
+        </div>
+
+        @if (vm.isFreePlan) {
+          <div class="subscription-card" data-testid="upgrade-plan-card">
+            <h2 class="subscription-card__title">Upgrade to Personal Plan</h2>
+
+            <div class="subscription-card__content">
+              <ul class="features-list" data-testid="upgrade-perks-list">
+                <li class="features-list__item" data-testid="upgrade-perk-wheels">Unlimited Wheels</li>
+                <li class="features-list__item" data-testid="upgrade-perk-sessions">Unlimited Sessions</li>
+              </ul>
+
+              <div class="subscription-card__actions">
+                <wil-cta-button
+                  [disabled]="(upgradeLoading$ | async) === true"
+                  [loading]="(upgradeLoading$ | async) === true"
+                  [ctaText]="'Upgrade to Personal Plan'"
+                  (ctaClick)="onUpgradeToPersonal()"
+                  [style]="'primary'"
+                  [size]="'large'"
+                  data-testid="upgrade-btn"
+                ></wil-cta-button>
+
+                @if (upgradeError$ | async; as upgradeError) {
+                  <div class="subscription-card__error" data-testid="upgrade-error">
+                    <span class="error-message__text">{{ upgradeError }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        } @else {
+          <div class="subscription-card" data-testid="manage-subscription-card">
+            <h2 class="subscription-card__title">Manage Subscription</h2>
+
+            <div class="subscription-card__content">
+              <div class="subscription-card__pricing" data-testid="plan-pricing">
+                <ul class="management-list" data-testid="subscription-management-list">
+                  <li class="management-list__item">Update Payment Methods</li>
+                  <li class="management-list__item">Update Billing Information</li>
+                  <li class="management-list__item">Check Invoice History - download Invoices or Receipts</li>
+                </ul>
+              </div>
+
+              <div class="subscription-card__actions">
+                @if (!vm.isCancelledSubscription) {
+                  <wil-cta-button
+                    [disabled]="(portalLoading$ | async) === true"
+                    [ctaText]="'Manage Subscription'"
+                    (ctaClick)="onManageSubscription()"
+                    [style]="'secondary'"
+                    [size]="'large'"
+                    data-testid="manage-subscription-btn"
+                  ></wil-cta-button>
+                }
+
+                @if (vm.isCancelledSubscription) {
+                  <wil-cta-button
+                    [disabled]="(resubscribeLoading$ | async) === true"
+                    [loading]="(resubscribeLoading$ | async) === true"
+                    [ctaText]="'Resubscribe'"
+                    (ctaClick)="onResubscribe()"
+                    [style]="'primary'"
+                    [size]="'large'"
+                    data-testid="resubscribe-btn"
+                  ></wil-cta-button>
+                }
+
+                <!-- Resubscribe error message -->
+                @if (vm.isCancelledSubscription) {
+                  @if (resubscribeError$ | async; as resubscribeError) {
+                    <div class="subscription-card__error" data-testid="resubscribe-error">
+                      <div class="error-message">
+                        <span class="error-message__text">{{ resubscribeError.message }}</span>
+                      </div>
+                      <wil-cta-button
+                        [ctaText]="'Contact Support'"
+                        (ctaClick)="navigateToSupport()"
+                        [style]="'secondary'"
+                        [size]="'large'"
+                        data-testid="contact-support-resubscribe-error"
+                      ></wil-cta-button>
+                    </div>
+                  }
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

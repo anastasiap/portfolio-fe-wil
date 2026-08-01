@@ -1,0 +1,68 @@
+{
+  "en": [
+    {
+      "color": "#ff6b6b",
+      "description": "How well do you care for your body and energy? Think about your sleep, movement, food, and how often you feel truly alive in it.",
+      "id": "0",
+      "score": 0,
+      "name": "Health & Wellbeing",
+      "order": 1
+    },
+    {
+      "color": "#4ecdc4",
+      "description": "Do you feel connected and supported? Consider how your friendships, family, and love life actually feel, not how they look.",
+      "id": "1",
+      "score": 0,
+      "name": "Relationships",
+      "order": 2
+    },
+    {
+      "color": "#45b7d1",
+      "description": "Does your work give you a sense of direction or pride? Are you creating something that matters to you — or just filling the hours?",
+      "id": "2",
+      "score": 0,
+      "name": "Career & Purpose",
+      "order": 3
+    },
+    {
+      "color": "#f9ca24",
+      "description": "How safe and stable do you feel around money? Not just income, but freedom — the ability to make choices without fear.",
+      "id": "3",
+      "score": 0,
+      "name": "Finances & Security",
+      "order": 4
+    },
+    {
+      "color": "#6c5ce7",
+      "description": "Are you evolving, learning, becoming wiser? Think of curiosity, creativity, and the joy of discovering new parts of yourself.",
+      "id": "4",
+      "score": 0,
+      "name": "Personal Growth & Learning",
+      "order": 5
+    },
+    {
+      "color": "#a29bfe",
+      "description": "Do you allow yourself to pause, play, and breathe? Life isn’t meant to be all progress — it’s also recovery and delight.",
+      "id": "5",
+      "score": 0,
+      "name": "Leisure, Fun & Rest",
+      "order": 6
+    },
+    {
+      "color": "#e17055",
+      "description": "Do you feel that what you do adds something good to the world? Even small acts count if they make you feel useful and kind.",
+      "id": "6",
+      "score": 0,
+      "name": "Social Contribution",
+      "order": 7
+    },
+    {
+      "color": "#00b894",
+      "description": "How connected do you feel to something larger than yourself — or simply to your own thoughts? This is the quiet space where meaning lives.",
+      "id": "7",
+      "score": 0,
+      "name": "Spirituality",
+      "order": 8
+    }
+  ]
+}

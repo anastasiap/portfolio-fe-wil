@@ -1,0 +1,137 @@
+<div class="complete-signup-form" data-testid="complete-signup-form">
+  <h2 class="complete-signup-form__title">Finish Your Account</h2>
+
+  @if (email()) {
+  <p class="complete-signup-form__email-info" data-testid="email-info">
+    Creating account for: <strong>{{ email() }}</strong>
+  </p>
+  }
+
+  <form [formGroup]="form" class="complete-signup-form__form">
+    @if (isRegistrationFlow()) {
+    <mat-form-field appearance="outline" class="complete-signup-form__field">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        type="email"
+        data-testid="complete-signup-form__input-email"
+        autocomplete="email"
+      />
+      @if (shouldShowError('email')) {
+      <mat-error data-testid="complete-signup-form__error-email">{{ getErrorMessage("email") }}</mat-error>
+      }
+    </mat-form-field>
+    }
+
+    <!-- First Name Field -->
+    <mat-form-field appearance="outline" class="complete-signup-form__field">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" type="text" data-testid="complete-signup-form__input-firstName" autocomplete="given-name" />
+      @if (shouldShowError('firstName')) {
+      <mat-error data-testid="complete-signup-form__error-firstName">{{ getErrorMessage("firstName") }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Last Name Field -->
+    <mat-form-field appearance="outline" class="complete-signup-form__field">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" type="text" data-testid="complete-signup-form__input-lastName" autocomplete="family-name" />
+      @if (shouldShowError('lastName')) {
+      <mat-error data-testid="complete-signup-form__error-lastName">{{ getErrorMessage("lastName") }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Password Field -->
+    <mat-form-field appearance="outline" class="complete-signup-form__field">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="showPassword() ? 'text' : 'password'"
+        data-testid="complete-signup-form__input-password"
+        autocomplete="new-password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="'Toggle password visibility'"
+        data-testid="toggle-password"
+      >
+        <mat-icon>{{ showPassword() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      @if (shouldShowError('password')) {
+      <mat-error data-testid="complete-signup-form__error-password">{{ getPasswordErrorMessage("password") }}</mat-error>
+      }
+      <mat-hint>Minimum 8 characters</mat-hint>
+    </mat-form-field>
+
+    <!-- Confirm Password Field -->
+    <mat-form-field appearance="outline" class="complete-signup-form__field">
+      <mat-label>Confirm Password</mat-label>
+      <input
+        matInput
+        formControlName="confirmPassword"
+        [type]="showConfirmPassword() ? 'text' : 'password'"
+        data-testid="complete-signup-form__input-confirmPassword"
+        autocomplete="new-password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="toggleConfirmPasswordVisibility()"
+        [attr.aria-label]="'Toggle confirm password visibility'"
+        data-testid="toggle-confirmPassword"
+      >
+        <mat-icon>{{ showConfirmPassword() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      @if (shouldShowError('confirmPassword')) {
+      <mat-error data-testid="complete-signup-form__error-confirmPassword">{{ getErrorMessage("confirmPassword") }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Legal Consent Checkbox -->
+    <div class="account-profile__email-form">
+      <div class="account-profile__field" data-testid="legal-consent-container">
+        <label class="account-profile__toggle-label">
+          <input type="checkbox" formControlName="legalConsent" class="account-profile__toggle-input" data-testid="complete-signup-form__checkbox-legalConsent" />
+          <span class="account-profile__toggle-text">
+            I agree to the
+            <a href="/terms" target="_blank" rel="noopener noreferrer" data-testid="link-terms">Terms of Service</a>
+            and
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" data-testid="link-privacy">Privacy Policy</a>
+          </span>
+        </label>
+        @if (shouldShowError('legalConsent')) {
+          <div class="account-profile__error-message" data-testid="complete-signup-form__error-legalConsent">
+            You must accept the Terms of Service and Privacy Policy to continue
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Submit Error -->
+    @if (submitError()) {
+    <div class="complete-signup-form__error" data-testid="submit-error">
+      {{ submitError() }}
+    </div>
+    }
+
+    <wil-email-preferences-form [isCompoundForm]="true"></wil-email-preferences-form>
+
+    <!-- Action Buttons -->
+    <div class="complete-signup-form__actions">
+      <wil-cta-button
+        [disabled]="!form.valid || isSubmitting()"
+        [ctaText]="isSubmitting() ? 'Creating Account...' : 'Finish Setup'"
+        (ctaClick)="onSubmit()"
+        [style]="'primary'"
+        [size]="'large'"
+        data-testid="complete-signup-form-button-submit"
+      ></wil-cta-button>
+    </div>
+  </form>
+</div>

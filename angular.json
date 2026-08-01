@@ -1,0 +1,266 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "wheeloflife": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "wil",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/browser",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "src/assets/seo",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "src/styles/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/seo",
+                  "output": "/"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets/"
+                }
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src/styles"
+                ]
+              },
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "300kb",
+                  "maximumError": "2000kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "6kb"
+                },
+                {
+                  "type": "bundle",
+                  "name": "vendor",
+                  "maximumWarning": "200kb",
+                  "maximumError": "2000kb"
+                }
+              ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "wheeloflife:build:production"
+            },
+            "development": {
+              "browserTarget": "wheeloflife:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "wheeloflife:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles/styles.scss"
+            ],
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main-server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/seo",
+                  "output": "/"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets/"
+                }
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src/styles"
+                ]
+              },
+              "optimization": true,
+              "outputHashing": "media",
+              "sourceMap": true,
+              "extractLicenses": true,
+              "buildOptimizer": true,
+              "vendorChunk": false,
+              "namedChunks": false
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "wheeloflife:build:development",
+              "serverTarget": "wheeloflife:server:development"
+            },
+            "production": {
+              "browserTarget": "wheeloflife:build:production",
+              "serverTarget": "wheeloflife:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/",
+              "/home",
+              "/about",
+              "/for-coaches",
+              "/plans",
+              "/blog",
+              "/client-link-not-found",
+              "/how-personal-plan-works",
+              "/personal-plan-premium-offer",
+              "/blog/adhd-in-5-minutes",
+              "/blog/what-is-the-wheel-of-life",
+              "/blog/wheel-of-life-categories-for-teamleads",
+              "/blog/why-do-i-feel-stuck"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "wheeloflife:build:production",
+              "serverTarget": "wheeloflife:server:production"
+            },
+            "development": {
+              "browserTarget": "wheeloflife:build:development",
+              "serverTarget": "wheeloflife:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "81253a4d-5ff0-4199-a523-bc2cd3e2ff7e",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
+  }
+}

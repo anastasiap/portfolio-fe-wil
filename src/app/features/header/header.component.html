@@ -1,0 +1,135 @@
+@if (vm$ | async; as vm) {
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px" class="header">
+    <div fxFlex.xs="100%" fxFlex.sm="25%" fxFlex.md="30%" fxFlex.lg="20%" fxFlex.gt-lg="20%" class="header__brand" data-testid="header-brand">
+      <div class="header__title" data-testid="header-title">
+        <h1>
+          @if (!vm.isAuthenticated) {
+            <a href="" routerLink="/" class="header__logo-link" data-testid="header-logo">{{ "siteTitle" | translate }} </a>
+          } @else {
+            <span class="header__logo-link" data-testid="header-logo-no-link">{{ "siteTitlePersonal" | translate }} </span>
+          }
+        </h1>
+
+        @if (vm.shouldShowSwitcher) {
+          <div class="header__nav--switcher-container" data-testid="header-wheel-switcher-container">
+            <wil-wheel-switcher class="header__wheel-switcher" data-testid="header-wheel-switcher"> </wil-wheel-switcher>
+          </div>
+        }
+      </div>
+    </div>
+
+    <button
+      mat-icon-button
+      class="header__hamburger"
+      (click)="toggleMobileMenu()"
+      data-testid="header-hamburger-button"
+      [attr.aria-label]="'menu' | translate"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+    >
+      <mat-icon>{{ isMobileMenuOpen() ? "close" : "menu" }}</mat-icon>
+    </button>
+
+    <div
+      fxFlex.xs="100%"
+      fxFlex.sm="75%"
+      fxFlex.md="66%"
+      fxFlex.lg="80%"
+      fxFlex.gt-lg="80%"
+      class="header__navigation"
+      data-testid="header-navigation-container"
+    >
+      <nav class="header__nav" data-testid="header-navigation">
+        @if (!vm.isAuthenticated || !vm.isSubscriptionNavigationRestricted) {
+          @for (link of vm.links; track link.testId) {
+            @if (isRouteLink(link)) {
+              <a
+                [routerLink]="link.route"
+                class="header__nav-link"
+                [class.accent]="link.className"
+                [attr.data-testid]="link.testId"
+                routerLinkActive="header__nav-link--active"
+                [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+              >
+                {{ link.label | translate }}
+              </a>
+            } @else {
+              @switch (link.action) {
+                @case ("logout") {
+                  <wil-cta-button
+                    class="logout-btn"
+                    (ctaClick)="handleNavAction(link.action)"
+                    [style]="'secondary'"
+                    [size]="'small'"
+                    [ctaText]="link.label | translate"
+                    [attr.data-testid]="link.testId"
+                  >
+                  </wil-cta-button>
+                }
+
+                @case ("language") {
+                  <div class="header__language-switcher" data-testid="header-navigation-language-switcher">
+                    <mat-select
+                      [value]="vm.locale"
+                      (selectionChange)="setLocale($event)"
+                      data-testid="header-navigation-language-switcher-mat-select"
+                    >
+                      @for (language of languages; track language) {
+                        <mat-option [value]="language">
+                          {{ labels[language] }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </div>
+                }
+
+                @case ("login") {
+                  <wil-cta-button
+                    class="logout-btn"
+                    (ctaClick)="handleNavAction(link.action)"
+                    [style]="'secondary'"
+                    [size]="'small'"
+                    [ctaText]="link.label | translate"
+                    [attr.data-testid]="link.testId"
+                  >
+                  </wil-cta-button>
+                }
+              }
+            }
+          }
+        } @else {
+          <a
+            routerLink="app/account/profile"
+            class="header__nav-link"
+            [attr.data-testid]="'subscription-canceled-nav-profile'"
+            routerLinkActive="header__nav-link--active"
+          >
+            {{ "profile" | translate }}
+          </a>
+
+          <wil-cta-button
+            class="logout-btn"
+            (ctaClick)="handleNavAction('logout')"
+            [style]="'secondary'"
+            [size]="'small'"
+            [ctaText]="'logout' | translate"
+            [attr.data-testid]="'subscription-canceled-nav-logout'"
+          >
+          </wil-cta-button>
+        }
+      </nav>
+    </div>
+  </div>
+
+  <wil-header-mobile-nav
+    [isOpen]="isMobileMenuOpen()"
+    [links]="vm.links"
+    [isAuthenticated]="vm.isAuthenticated"
+    [isSubscriptionNavigationRestricted]="vm.isSubscriptionNavigationRestricted"
+    [locale]="vm.locale"
+    [languages]="languages"
+    [labels]="labels"
+    (closeMobileMenu)="closeMobileMenu()"
+    (navAction)="handleMobileNavAction($event)"
+    (localeChange)="setLocale($event)"
+  ></wil-header-mobile-nav>
+}

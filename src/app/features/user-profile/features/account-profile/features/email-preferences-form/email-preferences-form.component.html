@@ -1,0 +1,34 @@
+<form [formGroup]="emailPreferencesForm" class="account-profile__email-form" data-testid="email-preferences-form">
+  <div class="account-profile__field" data-testid="email-preferences-marketing-content-field">
+    <label class="account-profile__toggle-label" data-testid="email-preferences-marketing-content-label">
+      <input
+        type="checkbox"
+        formControlName="marketingContent"
+        class="account-profile__toggle-input"
+        data-testid="toggle-marketing-content"
+      />
+      <span class="account-profile__toggle-text" data-testid="email-preferences-marketing-content-text">
+        Get a rare email with tutorials, useful hints, and short blog posts on how to apply the Wheel to your life.
+      </span>
+    </label>
+  </div>
+
+  @if (!isCompoundForm()) {
+    <div class="account-profile__email-save-section" data-testid="email-preferences-save-section">
+      @if (emailPreferencesSaving$ | async) {
+        <div class="account-profile__saving-indicator" data-testid="email-saving-indicator">
+          <span>Saving...</span>
+        </div>
+      }
+      <button
+        type="button"
+        class="button button--large button--secondary"
+        [disabled]="emailPreferencesForm.pristine || (emailPreferencesSaving$ | async)"
+        (click)="onSaveEmailPreferences()"
+        data-testid="button-save-email-preferences"
+      >
+        Save
+      </button>
+    </div>
+  }
+</form>

@@ -1,0 +1,72 @@
+<div class="gdpr-privacy" data-testid="gdpr-privacy-section">
+  <h1 class="gdpr-privacy__title">GDPR & Privacy Controls</h1>
+  <p class="gdpr-privacy__description">
+    Control your privacy settings, export your data, or delete your account. Manage your GDPR rights and data processing preferences.
+  </p>
+
+  <!-- Data Export Card -->
+  <mat-card class="gdpr-privacy__card" data-testid="data-export-card">
+    <mat-card-header>
+      <mat-card-title>Download your data</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="gdpr-privacy__card-description">
+        We'll generate a ZIP archive containing your personal data. The download link expires after a short time for security.
+      </p>
+
+      @if ((exportMeta$ | async)?.expiresAt; as expiresAt) {
+        <div class="gdpr-privacy__export-info">
+          @if (expiresAt) {
+            <p class="gdpr-privacy__expires-info" data-testid="expires-info">
+              <strong>Download link expires:</strong> {{ expiresAt | date : "medium" }}
+            </p>
+          }
+        </div>
+      }
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        class="button button--small button--primary"
+        [disabled]="isLoading$ | async"
+        (click)="onRequestExport()"
+        data-testid="download-data-button"
+        >
+        1. Prepare the Data
+      </button>
+
+      @if (exportMeta$ | async; as meta) {
+        <button
+          class="button button--small button--secondary"
+          [disabled]="(isLoading$ | async) || !meta.downloadUrl"
+          (click)="onDownload$.next(meta.downloadUrl!)"
+          data-testid="download-data-button"
+          >
+          2. Download .zip File
+        </button>
+      }
+    </mat-card-actions>
+
+    @if (isLoading$ | async) {
+      <mat-progress-bar mode="indeterminate" data-testid="export-progress-bar"> </mat-progress-bar>
+    }
+  </mat-card>
+
+  <!-- Delete Account Card -->
+  <mat-card class="gdpr-privacy__card" data-testid="delete-account-card">
+    <mat-card-header>
+      <mat-card-title>Delete account</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="gdpr-privacy__card-description">This permanently deletes your account and removes personal data. This cannot be undone.</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button class="button button--small button--warn" (click)="onDeleteAccount()" data-testid="delete-account-button">
+        Delete account
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,34 @@
+<div class="plan-select-content" data-testid="plan-select-content">
+  <div class="plan-card" data-testid="plan-card-container">
+    <div class="plan-card__header" data-testid="plan-card-header">
+      <p class="plan-card__header-text" data-testid="plan-card-header-text">
+        {{ planData[0].headerText }}
+      </p>
+      <p data-testid="plan-card-header-benefits">
+        <a href="" (click)="navigate($event)">See how it works</a>
+      </p>
+    </div>
+
+    <div class="plan-card__content" data-testid="plan-card-content">
+      <div class="plan-card__features" data-testid="plan-card-features">
+        @for (feature of planData[0].features; track feature) {
+        <div class="plan-card__feature" data-testid="plan-card-feature">
+          {{ feature }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="plan-card__footer" data-testid="plan-card-footer">
+      <wil-cta-button
+        [disabled]="false"
+        [loading]="loading()"
+        [ctaText]="planData[0].ctaButtonText"
+        (ctaClick)="onPlanCtaClick(planData[0])"
+        [style]="'primary'"
+        [size]="'small'"
+        data-testid="plan-card-cta-button"
+      ></wil-cta-button>
+    </div>
+  </div>
+</div>

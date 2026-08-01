@@ -1,0 +1,105 @@
+<div class="account-profile">
+  @if (isSignupCompletionMode()) {
+    <wil-complete-signup
+      [signupCompletionState]="signupCompletionState()"
+      [signupData]="signupData()"
+      [signupError]="signupError()"
+      [isPollingTimeout]="isPollingTimeout()"
+      (retryCheck)="onRetryCheck()"
+    ></wil-complete-signup>
+  } @else {
+    <div class="account-profile__normal-profile" data-testid="normal-profile-mode">
+      <h1 class="account-profile__title">Profile</h1>
+
+      @if (isLoading()) {
+        <div class="account-profile__loading" data-testid="loading-indicator">
+          <p>Loading your profile...</p>
+        </div>
+      } @else {
+        @if (currentUser(); as currentUser) {
+          <div class="account-profile__user-info" data-testid="user-info">
+            <!-- Basic Info Section -->
+            <section class="account-profile__section">
+              <h2 class="account-profile__section-title">Basic Information</h2>
+
+              <div class="account-profile__form">
+                <!-- First Name Field (readonly) -->
+                <div class="account-profile__field">
+                  <label class="account-profile__label" for="firstName">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    class="account-profile__input name"
+                    [value]="currentUser.name || 'Not provided'"
+                    readonly
+                    data-testid="field-firstName"
+                  />
+                </div>
+
+                <!-- Surname Field (readonly) -->
+                <div class="account-profile__field">
+                  <label class="account-profile__label" for="surname">Surname</label>
+                  <input
+                    type="text"
+                    id="surname"
+                    class="account-profile__input name"
+                    [value]="currentUser.secondName || 'Not provided'"
+                    readonly
+                    data-testid="field-surname"
+                  />
+                </div>
+
+                <!-- Email Field (readonly) -->
+                <div class="account-profile__field">
+                  <label class="account-profile__label" for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="account-profile__input"
+                    [value]="currentUser.email"
+                    readonly
+                    data-testid="field-email"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="account-profile__section">
+              <h2 class="account-profile__section-title">Email Verification Status</h2>
+
+              @if (currentUser.emailVerified) {
+                <div class="account-profile__email-verification">
+                  <mat-icon class="account-profile__email-verification--success">check-circle</mat-icon>
+                  <span class="account-profile__email-verification--success">Email is verified</span>
+                </div>
+              } @else {
+                <div class="account-profile__email-verification">
+                  <mat-icon class="account-profile__email-verification--warning">warning</mat-icon>
+                  <span class="account-profile__email-verification--warning">Please, verify your email.</span>
+                </div>
+
+                <wil-cta-button
+                  (ctaClick)="resendVerificationEmail()"
+                  [style]="'primary'"
+                  [size]="'small'"
+                  [ctaText]="'Re-send Email Verification Request'"
+                  class="account-profile__email-verification-btn"
+                  data-testid="button-verify-email"
+                ></wil-cta-button>
+              }
+            </section>
+
+            <section class="account-profile__section">
+              <h2 class="account-profile__section-title">Email Subscription Settings</h2>
+              <wil-email-preferences-form></wil-email-preferences-form>
+            </section>
+          </div>
+        } @else {
+          <div class="account-profile__no-user" data-testid="no-user">
+            <p>No user data available. Please log in.</p>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

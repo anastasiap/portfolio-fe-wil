@@ -1,0 +1,177 @@
+<div class="contact-support" data-testid="contact-support-section">
+  <div class="contact-support__header" data-testid="contact-support-header">
+    <h1 class="contact-support__title" data-testid="contact-support-title">Contact & Support</h1>
+    <p class="contact-support__description" data-testid="contact-support-description">
+      You can reach out to our support team via email or use the form below to report issues, ask questions, or request assistance.
+    </p>
+    <div class="contact-support__email" data-testid="contact-support-email">
+      <strong>Support Email:</strong>
+      <a [href]="'mailto:' + supportEmail" class="contact-support__email-link" data-testid="contact-support-email-link">
+        {{ supportEmail }}
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-support__form-container" data-testid="contact-support-form-container">
+    <form [formGroup]="supportForm" class="contact-support__form" data-testid="contact-support-form">
+      <!-- Submission Progress Bar -->
+      @if (isSubmitting()) {
+        <mat-progress-bar mode="indeterminate" class="contact-support__progress" data-testid="contact-support-progress"></mat-progress-bar>
+      }
+
+      <!-- Name Field -->
+      <mat-form-field appearance="outline" class="contact-support__field" data-testid="contact-support-name-field">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          placeholder="Your full name"
+          data-testid="contact-support-name-input"
+        />
+        @if (supportForm.get('name')?.hasError('required')) {
+          <mat-error data-testid="contact-support-name-error-required"> Name is required </mat-error>
+        }
+        @if (supportForm.get('name')?.hasError('minlength')) {
+          <mat-error data-testid="contact-support-name-error-minlength"> Name must be at least 2 characters long </mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Description Field -->
+      <mat-form-field appearance="outline" class="contact-support__field" data-testid="contact-support-description-field">
+        <mat-label>Short description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Please describe your issue, question, or request..."
+          rows="10"
+          data-testid="contact-support-description-textarea"
+        ></textarea>
+        @if (supportForm.get('description')?.hasError('required')) {
+          <mat-error data-testid="contact-support-description-error-required"> Description is required </mat-error>
+        }
+        @if (supportForm.get('description')?.hasError('minlength')) {
+          <mat-error data-testid="contact-support-description-error-minlength"> Description must be at least 10 characters long </mat-error>
+        }
+      </mat-form-field>
+
+      <!-- File Attachment Field -->
+      <div class="contact-support__attachment" data-testid="contact-support-attachment-container">
+        <p class="contact-support__attachment-label" data-testid="contact-support-attachment-label"> Attachment (optional) </p>
+
+        <div
+          class="contact-support__file-drop-zone"
+          [class.contact-support__file-drop-zone--has-file]="selectedFile()"
+          [class.contact-support__file-drop-zone--error]="fileError()"
+          [class.contact-support__file-drop-zone--disabled]="isSubmitting()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+          data-testid="contact-support-file-drop-zone"
+        >
+          @if (selectedFile() && !fileError()) {
+            <div class="contact-support__file-selected" data-testid="contact-support-file-selected">
+              <div class="contact-support__file-info">
+                <mat-icon class="contact-support__file-icon" data-testid="contact-support-file-icon">attach_file</mat-icon>
+                <span class="contact-support__file-name" data-testid="contact-support-file-name">
+                  {{ selectedFileName() }}
+                </span>
+              </div>
+              <button
+                type="button"
+                mat-icon-button
+                (click)="onFileRemove()"
+                class="contact-support__file-remove"
+                [disabled]="isSubmitting()"
+                data-testid="contact-support-file-remove-button"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          } @else {
+            <div class="contact-support__file-input-area" data-testid="contact-support-file-input-area">
+              <mat-icon class="contact-support__upload-icon" data-testid="contact-support-upload-icon">cloud_upload</mat-icon>
+              <p class="contact-support__drop-text" data-testid="contact-support-drop-text">
+                Drag and drop a file here, or
+                <button
+                  type="button"
+                  mat-button
+                  color="primary"
+                  class="contact-support__browse-button"
+                  [disabled]="isSubmitting()"
+                  data-testid="contact-support-browse-button"
+                  (click)="fileInputElement.click()"
+                >
+                  browse files
+                </button>
+              </p>
+              <p class="contact-support__file-hint" data-testid="contact-support-file-hint">
+                Supporting images, PDFs, or text files (max 10MB)
+              </p>
+              <input
+                type="file"
+                (change)="onFileSelected($event)"
+                accept="image/*,.pdf,.txt,.json"
+                hidden
+                #fileInputElement
+                data-testid="contact-support-file-input"
+              />
+            </div>
+          }
+        </div>
+
+        <!-- File Error -->
+        @if (fileError()) {
+          <div class="contact-support__file-error" data-testid="contact-support-file-error">
+            <mat-icon class="contact-support__error-icon">error</mat-icon>
+            <span>{{ fileError() }}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Consent Notice -->
+      <div class="contact-support__consent" data-testid="contact-support-consent">
+        <mat-icon class="contact-support__consent-icon" data-testid="contact-support-consent-icon">info</mat-icon>
+        <p class="contact-support__consent-text" data-testid="contact-support-consent-text">
+          Please do not include passwords, payment card details, or other sensitive information.
+        </p>
+      </div>
+
+      @if (showSuccess()) {
+        <div class="contact-support__success" data-testid="contact-support-success">
+          <mat-icon class="contact-support__success-icon" data-testid="contact-support-success-icon">check-circle</mat-icon>
+          <p class="contact-support__success-text" data-testid="contact-support-success-text">
+            You request has been successfully sent. I'll get back to you within 24 hours. Please, feel free to ping me via
+            <a [href]="'mailto:' + supportEmail" class="contact-support__email-link" data-testid="contact-support-email-link">
+              {{ supportEmail }}.</a
+            >
+          </p>
+        </div>
+      }
+
+      @if (showError()) {
+        <div class="contact-support__error" data-testid="contact-support-error">
+          <mat-icon class="contact-support__error-icon" data-testid="contact-support-error-icon">error</mat-icon>
+          <p class="contact-support__error-text" data-testid="contact-support-error-text">
+            Something went wrong during message sending. Please,send your request directly to
+            <a [href]="'mailto:' + supportEmail" class="contact-support__email-link" data-testid="contact-support-email-link">
+              {{ supportEmail }}.
+            </a>
+          </p>
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <div class="contact-support__actions" data-testid="contact-support-actions">
+        <wil-cta-button
+          [loading]="isSubmitting()"
+          [disabled]="!isFormValid()"
+          ctaText="Send Message"
+          (ctaClick)="onSubmit()"
+          [style]="'primary'"
+          size="small"
+          class="contact-support__submit-button"
+        ></wil-cta-button>
+      </div>
+    </form>
+  </div>
+</div>

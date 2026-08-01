@@ -1,0 +1,13 @@
+<div class="app" data-testid="app-root">
+  @if (showHeader) {
+    <wil-header data-testid="app-header"> </wil-header>
+  }
+
+  <main class="app__content" data-testid="app-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  @if (showFooter) {
+    <wil-footer data-testid="app-footer"> </wil-footer>
+  }
+</div>

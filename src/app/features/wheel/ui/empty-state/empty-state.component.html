@@ -1,0 +1,34 @@
+<div class="empty-state__icon" data-testid="empty-state-icon">
+  <mat-icon class="empty-state__wheel-icon">donut_large</mat-icon>
+</div>
+
+<h2 class="empty-state__heading" data-testid="empty-state-heading">
+  {{ "noWheelsYet" | translate }}
+</h2>
+
+<!-- Subtext -->
+<p class="empty-state__subtext" data-testid="empty-state-subtext">
+  {{ "startByCreatingOrUseDefault" | translate }}
+</p>
+
+<!-- Action Buttons -->
+<div class="empty-state__actions" data-testid="empty-state-actions">
+  <div class="action-button" data-testid="add-new-wheel-wrapper">
+    <button (click)="onNewClick$.next()" type="button" class="button button--primary circle" data-testid="add-new-wheel-button">
+      <mat-icon data-testid="add-new-wheel-icon">add</mat-icon>
+    </button>
+    <p class="action-button__label" data-testid="add-new-wheel-label">
+      {{ "addNewWheel" | translate }}
+    </p>
+  </div>
+
+  <!-- Use Default Wheel Button -->
+  <div class="action-button" data-testid="use-default-wheel-wrapper">
+    <button (click)="onDefaultClick$.next()" type="button" class="button button--primary circle" data-testid="use-default-wheel-button">
+      <mat-icon data-testid="use-default-wheel-icon">settings</mat-icon>
+    </button>
+    <p class="action-button__label" data-testid="use-default-wheel-label">
+      {{ "useDefaultWheel" | translate }}
+    </p>
+  </div>
+</div>

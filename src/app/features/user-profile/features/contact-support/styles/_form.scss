@@ -1,0 +1,25 @@
+.contact-support {
+  &__form-container {
+    margin-top: 2rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__progress {
+    margin-bottom: 1rem;
+  }
+
+  &__field {
+    width: 100%;
+    font-family: "Didact Gothic", "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      margin-top: 0.5rem;
+    }
+  }
+}

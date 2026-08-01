@@ -1,0 +1,62 @@
+<main class="main" data-testid="landing-coaches-main">
+  <h1>Embed the Wheel of Life on Your Website</h1>
+
+  <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="5px">
+    <div fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="80%" fxFlex.lg="50%" fxFlex.gt-lg="40%">
+      <article>
+        <div class="description">
+          <span class="quote">“</span>
+          <p>
+            <i
+            >The Wheel fits beautifully into my program and gives me a structured way help my coaching clients with values alignment. It’s
+              already helping me guide conversations that are more grounded and purposeful.
+            </i>
+            <br />
+            <b>Michele, coach & program creator of <a href="https://mahjlife.com/">mahjlife.com</a></b>
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="5px">
+    <div fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" fxFlex.lg="50%" fxFlex.gt-lg="50%">
+      <div class="img-container">
+        <img src="../../../assets/wheelofbalance.jpg" alt="Wheel of Balance" />
+      </div>
+    </div>
+
+    <div fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" fxFlex.lg="48%" fxFlex.gt-lg="48%">
+      <article data-testid="landing-coaches-article">
+        <section class="pricing-table" data-testid="landing-coaches-pricing-table">
+          <div fxLayout="row wrap" fxLayoutGap="40px" fxLayoutAlign.md="center start" fxLayoutAlign.gt-lg="start start">
+            <div fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.gt-md="80%" fxFlex.gt-lg="50%">
+              <div class="pricing-column" data-testid="landing-coaches-pricing-table-column-full">
+                <div class="pricing-table__header">
+                  <h3>Done-for-You Wheel Setup</h3>
+                  <div class="price">$399</div>
+                </div>
+                <p>✅ Your own categories and descriptions</p>
+                <p>✅ Client results sent directly to you after each session</p>
+                <p>✅ Wheel setup and integration on your website</p>
+                <div class="note">
+                  <p>⚠️ Website compatibility check required before purchase</p>
+                </div>
+
+                <wil-cta-button
+                  [ctaText]="'I\'m interested'"
+                  (ctaClick)="openApplyModal()"
+                  [style]="'primary'"
+                  [size]="'large'"
+                  data-testid="landing-coaches-apply-button"
+                ></wil-cta-button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="article-footer"></footer>
+      </article>
+    </div>
+  </div>
+</main>

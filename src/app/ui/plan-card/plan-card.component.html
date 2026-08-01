@@ -1,0 +1,54 @@
+<div class="plan-card" [class.plan-card--highlighted]="planData().isHighlighted" data-testid="plan-card-container">
+  <div class="plan-card__header" data-testid="plan-card-header">
+    <p class="plan-card__header-text" data-testid="plan-card-header-text">
+      {{ planData().headerText }}
+    </p>
+    <p data-testid="plan-card-header-benefits">{{ planData().benefits }}</p>
+  </div>
+
+  <div class="plan-card__pricing" data-testid="plan-card-pricing">
+    <div class="plan-card__price" data-testid="plan-card-price">
+      {{ planData().price }}@if (planData().price !== 'Free') {
+      <span class="sup">.99</span>
+    }
+  </div>
+  @if (planData().priceSubtext) {
+    <div class="plan-card__price-subtext" data-testid="plan-card-price-subtext">
+      {{ planData().priceSubtext }}
+    </div>
+  }
+</div>
+
+<div class="plan-card__content" data-testid="plan-card-content">
+
+    <div [ngClass]="{
+          'visibility-hidden': this.planData().planType === 'Professional'
+        }" class="plan-card__feature link" data-testid="plan-card-feature">
+    <a href="" (click)="navigate($event)">See how it works</a>
+  </div>
+
+  <ul class="plan-card__features" data-testid="plan-card-features">
+    @for (feature of planData().features; track feature) {
+      <li class="plan-card__feature" data-testid="plan-card-feature">
+        {{ feature }}
+      </li>
+    }
+  </ul>
+  @if (planData().price !== 'Free') {
+    <div class="plan-card__tc">* Fair Usage Policy applies</div>
+  }
+</div>
+
+<div class="plan-card__footer" data-testid="plan-card-footer">
+  <wil-cta-button
+    [ctaText]="planData().ctaButtonText"
+    (ctaClick)="onCtaClick()"
+    [style]="'primary'"
+    [size]="'large'"
+    class="plan-card__cta-button"
+    data-testid="plan-card-cta-button"
+  ></wil-cta-button>
+</div>
+
+</div>
+

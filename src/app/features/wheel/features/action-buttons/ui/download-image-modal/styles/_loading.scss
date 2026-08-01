@@ -1,0 +1,32 @@
+.download-modal {
+  &__loading {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+
+  &__spinner-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__text-content {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  &__loading-title {
+    margin: 0 0 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #353535;
+    font-family: "Didact Gothic", sans-serif;
+  }
+
+  &__loading-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #666;
+  }
+}

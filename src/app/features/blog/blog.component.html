@@ -1,0 +1,22 @@
+<main data-testid="blog-main">
+  <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="20px">
+    <div fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.gt-md="30%">
+      <nav class="blog-nav" data-testid="blog-nav">
+        <ul data-testid="blog-list-posts">
+          @for (post of posts; track post.id) {
+            <li>
+              <a [routerLink]="['/blog', post.id]" routerLinkActive="active" data-testid="blog-link-post">{{ post.title }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+    </div>
+    <div fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.gt-md="66%">
+      <section class="blog-content" data-testid="blog-section-content">
+        <router-outlet data-testid="blog-outlet-router"></router-outlet>
+      </section>
+    </div>
+  </div>
+</main>
+
+<wil-donate data-testid="blog-component-donate"></wil-donate>

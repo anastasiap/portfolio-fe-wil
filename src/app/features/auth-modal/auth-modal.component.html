@@ -1,0 +1,33 @@
+<div class="modal auth-modal" data-testid="auth-modal-container">
+  <div class="modal__header" data-testid="auth-modal-header">
+    <h2 class="modal__title" data-testid="auth-modal-title">{{ viewTitle() }}</h2>
+
+    <button class="modal__close" type="button" (click)="onClose()" data-testid="auth-modal-close-button" aria-label="Close modal">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content" data-testid="auth-modal-content">
+    @switch (currentView()) {
+      @case ('login') {
+        <wil-login-modal-content (navigate)="switchView($event)" data-testid="auth-modal-login-content">
+        </wil-login-modal-content>
+      }
+
+      @case ('register') {
+        <wil-plan-select-modal-content
+          (navigateBack)="switchView('login')"
+          (selectPlan)="onPlanSelected($event)"
+          (navigateToLanding)="onClose()"
+          data-testid="auth-modal-plan-select-content"
+        >
+        </wil-plan-select-modal-content>
+      }
+
+      @case ('forgotPassword') {
+        <wil-forgot-password-modal-content (navigate)="switchView($event)" data-testid="auth-modal-forgot-password-content">
+        </wil-forgot-password-modal-content>
+      }
+    }
+  </div>
+</div>

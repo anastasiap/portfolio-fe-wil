@@ -1,0 +1,28 @@
+.contact-support {
+  &__error,
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__error-icon,
+  &__success-icon {
+    font-size: 1.8rem;
+    width: 39px;
+    height: 39px;
+    margin-right: 5px;
+  }
+
+  &__error-icon {
+    color: var(--error-color, #f44336);
+  }
+
+  &__success-icon {
+    color: var(--success-color, #4caf50);
+  }
+}

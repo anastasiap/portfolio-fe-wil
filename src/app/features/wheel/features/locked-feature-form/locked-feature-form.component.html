@@ -1,0 +1,111 @@
+<div class="modal locked-feature-modal" data-testid="locked-feature-modal">
+  <div class="modal__header" data-testid="locked-feature-modal-header">
+    <div>
+      <div class="modal__title-container">
+        <mat-icon class="modal__lock-icon" data-testid="locked-feature-modal-icon">lock</mat-icon>
+        <h2 class="modal__title" data-testid="locked-feature-modal-title">
+          This feature is a part of future <br /><i>Personal & Professional</i> Plans
+        </h2>
+      </div>
+      <p class="modal__subtitle" data-testid="locked-feature-modal-subtitle">Save categories and results, and track progress over time.</p>
+    </div>
+
+    <button class="modal__close" type="button" aria-label="Close modal" (click)="onClose()" data-testid="locked-feature-form-close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content" data-testid="locked-feature-form-content">
+    @if (uiState() === 'success') {
+      <div class="locked-feature-form__success" data-testid="locked-feature-form-success">
+        <p>Thanks! We'll keep you posted.</p>
+      </div>
+
+      <div class="locked-feature-form__actions">
+        <wil-cta-button
+          (ctaClick)="onClose()"
+          [style]="'secondary'"
+          [size]="'small'"
+          ctaText="Close"
+          data-testid="locked-feature-form-close-button"
+        ></wil-cta-button>
+      </div>
+    } @else if (uiState() === 'error') {
+      <div class="locked-feature-form__error" data-testid="locked-feature-form-error">
+        <p>
+          Something went wrong. Please, feel free to send a direct email to
+          <span class="email">
+            <a
+              target="_blank"
+              onmouseover="this.href=this.href.replace(/x/g,'');"
+              id="linkContainer"
+              aria-label="Email support"
+            ></a>
+          </span>
+        </p>
+      </div>
+
+      <div class="locked-feature-form__actions">
+        <wil-cta-button
+          (ctaClick)="onClose()"
+          [style]="'secondary'"
+          [size]="'small'"
+          ctaText="Close"
+          data-testid="locked-feature-form-close-button"
+        ></wil-cta-button>
+      </div>
+    } @else {
+      <form class="locked-feature-form" [formGroup]="form" autocomplete="off" data-testid="locked-feature-form">
+        <fieldset class="locked-feature-form__fieldset" aria-label="Send interest form">
+          <mat-label class="locked-feature-form__interest-label" data-testid="locked-feature-form-interest-label">
+            I'll let you know, when it's available.
+          </mat-label>
+
+          <mat-radio-group formControlName="plan" class="locked-feature-form__radio-group" data-testid="locked-feature-form-plans-select">
+            <mat-radio-button value="personal" aria-label="personal" data-testid="locked-feature-form-plan-personal">
+              Personal use
+            </mat-radio-button>
+            <mat-radio-button value="professional" aria-label="Professional" data-testid="locked-feature-form-plan-professional">
+              Professional use
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <mat-form-field class="locked-feature-form__field">
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="Enter your email"
+              required
+              aria-label="Email"
+              data-testid="locked-feature-form-email"
+            />
+            @if (email.invalid && (email.dirty || email.touched)) {
+              <mat-error data-testid="locked-feature-form-email-error">
+                Please enter a valid email address.
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Honeypot field: should remain empty -->
+          <div style="display: none">
+            <label for="nickname">Nickname:</label>
+            <input type="text" id="nickname" name="nickname" autocomplete="off" />
+          </div>
+        </fieldset>
+
+        <div class="locked-feature-form__actions">
+          <wil-cta-button
+            [disabled]="form.invalid || uiState() === 'submitting'"
+            [loading]="uiState() === 'submitting'"
+            [ctaText]="'I\'m interested'"
+            (ctaClick)="onSubmit()"
+            [style]="'primary'"
+            [size]="'small'"
+            data-testid="locked-feature-form-send"
+          ></wil-cta-button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

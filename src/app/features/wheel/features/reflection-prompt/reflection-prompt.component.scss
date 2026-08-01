@@ -1,0 +1,47 @@
+:host {
+  width: 100%;
+  max-width: 585px;
+}
+
+.wil-reflection-prompt {
+  width: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__label-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  &__label {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #333;
+    border-bottom: 1px solid #e9ecef;
+    letter-spacing: 0.5px;
+  }
+
+  &__item {
+    color: #808080;
+    font-size: 0.85rem;
+    line-height: 2.6;
+    letter-spacing: 0.5px;
+  }
+
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .wil-reflection-prompt {
+    padding: 0;
+
+    &__label {
+      font-size: 1.5rem;
+    }
+  }
+}

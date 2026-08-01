@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+
+.auth-modal {
+  position: relative;
+  min-height: 300px;
+  min-width: 400px;
+
+  // Mobile responsive
+  @media (max-width: 768px) {
+    max-width: calc(100vw - 32px);
+    margin: 16px 0;
+    min-width: inherit;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 0;
+    overflow-y: auto;
+    max-height: calc(90vh - 120px);
+
+    // Ensure smooth scrolling on mobile
+    -webkit-overflow-scrolling: touch;
+  }
+}

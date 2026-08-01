@@ -1,0 +1,102 @@
+@import 'src/styles/variables.scss';
+
+.account-profile {
+  // Email preferences specific styles
+  &__email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  &__toggle-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    accent-color: $current-primary-blue;
+  }
+
+  &__toggle-text {
+    flex: 1;
+  }
+
+  &__field-description {
+    margin: 0.25rem 0 0 2rem;
+    font-size: 0.875rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  &__email-save-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  &__saving-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+
+    span {
+      font-style: italic;
+    }
+  }
+
+  &__button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: $radius-xs;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &--primary {
+      background-color: $current-primary-blue;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: $current-accent-blue;
+      }
+
+      &:disabled {
+        background-color: $current-primary-blue;
+      }
+    }
+
+    &--secondary {
+      background-color: #ffffff;
+      color: $current-primary-blue;
+      border: 1px solid $current-primary-blue;
+
+      &:hover:not(:disabled) {
+        background-color: #e3f2fd;
+      }
+
+      &:disabled {
+        background-color: #ffffff;
+        color: $current-primary-blue;
+        border-color: $current-primary-blue;
+      }
+    }
+  }
+}

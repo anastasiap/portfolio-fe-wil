@@ -1,0 +1,75 @@
+<div class="promotional home">
+  <section class="hero">
+    <h1 class="display">New and Exciting</h1>
+    <h2>Create unlimited wheels, save results, track progress over time</h2>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="steps">
+        <article class="step">
+          <div>
+            <h3>1. Create your wheel</h3>
+            <p class="description">Create Wheels that matter to you, such as Fitness Tracker, Financial Well-being, or Professional Growth.</p>
+          </div>
+          <div class="mini-placeholder">
+            <img src="assets/personal-landing/wheel-of-life-01.jpg" alt="Create personalized your own Wheel of Life" />
+          </div>
+        </article>
+
+        <article class="step">
+          <div>
+            <h3>2. Set focus</h3>
+            <p class="description">Pick one or two areas you plan to focus on over the coming weeks or months, and keep an eye on how your focus shifts.</p>
+          </div>
+          <div class="mini-placeholder">
+            <img src="assets/personal-landing/wheel-of-life-02.jpg" alt="Create personalized your own Wheel of Life" />
+          </div>
+        </article>
+
+        <article class="step">
+          <div>
+            <h3>3. Add a short reflection</h3>
+            <p class="description">Add a few notes to each session about what affected your scores or what you want to remember later.</p>
+          </div>
+          <div class="mini-placeholder">
+            <img src="assets/personal-landing/wheel-of-life-04.jpg" alt="Create personalized your own Wheel of Life" />
+          </div>
+        </article>
+
+        <article class="step">
+          <div>
+            <h3>4. See patterns over time</h3>
+            <p class="description">Begin to notice what improves, what drops under pressure, and what keeps repeating.</p>
+          </div>
+          <div class="mini-placeholder">
+            <img src="assets/personal-landing/wheel-of-life-analytics-01.jpg" alt="Create personalized your own Wheel of Life" />
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="start">
+    <div class="wrap">
+      <div class="cta-box">
+        <h2 class="title">Try it for yourself</h2>
+        <p class="description">
+          It takes a few minutes to start. If the structure clicks, you will keep using it. If not, you have at least spent less than on an
+          indifferent sandwich.
+        </p>
+        <div style="max-width: 450px; margin: 0 auto">
+          <wil-cta-button
+            [disabled]="false"
+            [loading]="false"
+            ctaText="Start Personal Plan — $5.99/month"
+            (ctaClick)="onPlanSelected('bottom')"
+            [style]="'primary'"
+            [size]="'large'"
+            data-testid="personal-landing-cta"
+          ></wil-cta-button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

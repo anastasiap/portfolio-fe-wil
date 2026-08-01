@@ -1,0 +1,8 @@
+<button class="button button--{{ size() }}  button--{{ style() }}" type="button" [disabled]="disabled()" (click)="ctaClick.emit()">
+  @if (loading()) {
+    <mat-spinner diameter="15" class="button__spinner" data-testid="button-loading-spinner"></mat-spinner>
+  }
+  @if (!loading()) {
+    <span> {{ ctaText() }}</span>
+  }
+</button>

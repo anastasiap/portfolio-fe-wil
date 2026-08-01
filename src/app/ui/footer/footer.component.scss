@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+  .footer {
+    border-top: #f3f3f3 1px solid;
+    flex-shrink: 0;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 30px;
+
+    &__link-legal {
+      a {
+        color: #c5c5c5;
+        text-decoration: none;
+        padding-right: 10px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &__link {
+      padding: 15px;
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        color: #353535;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

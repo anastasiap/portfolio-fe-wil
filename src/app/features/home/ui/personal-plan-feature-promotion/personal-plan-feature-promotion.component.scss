@@ -1,0 +1,33 @@
+.promotional.home {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+
+  section {
+    padding: 15px 0;
+  }
+
+  .display {
+    font-size: 5.5rem;
+  }
+
+  .hero {
+    text-align: center;
+  }
+
+  .description {
+    padding: 15px 0;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wrap {
+    width: 100%;
+  }
+
+  .step {
+    display: block;
+  }
+}

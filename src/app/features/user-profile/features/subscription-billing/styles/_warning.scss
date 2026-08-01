@@ -1,0 +1,20 @@
+@use "src/styles/variables.scss" as *;
+
+.warning-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: $radius-sm;
+  padding: 1rem 1.5rem;
+
+  &__icon {
+    font-size: 1.25rem;
+  }
+
+  &__text {
+    color: #856404;
+    font-weight: 500;
+  }
+}

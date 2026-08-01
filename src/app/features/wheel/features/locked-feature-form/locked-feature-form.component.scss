@@ -1,0 +1,90 @@
+@import "src/styles/variables";
+
+.locked-feature-form {
+  position: relative;
+  min-width: 400px;
+  max-width: 500px;
+
+  &__fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+
+  &__radio-group {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__interest-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #333;
+  }
+
+  &__field {
+    width: 100%;
+    margin-top: 1rem;
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: $radius-xs;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  &__success {
+    text-align: center;
+    color: #28a745;
+    font-weight: 500;
+
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__error {
+    color: #dc3545;
+
+    p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

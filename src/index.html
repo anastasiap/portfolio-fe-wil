@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!-- SEO meta tags are set dynamically via SeoService and TitleStrategy -->
+
+    <base href="/" />
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Didact+Gothic&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet" crossorigin="anonymous" />
+    <link rel="preload" href="assets/animate.min.css" as="style" onload="this.rel='stylesheet'" />
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but wheeloflife doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    <wil-root> </wil-root>
+    <div
+      id="initial-loading-screen"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #fff;
+        color: #1c4d8d;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+      "
+    >
+      <div
+        style="
+          width: 60px;
+          height: 60px;
+          border: 6px solid rgba(28, 77, 141, 0.1);
+          border-top: 6px solid white;
+          border-radius: 50%;
+          animation: spin-wheel 1.2s linear infinite;
+          margin-bottom: 24px;
+        "
+      ></div>
+
+      <h1 style="margin: 0 0 8px 0; font-size: 28px; font-weight: 700; letter-spacing: -0.025em">Wheel of Life</h1>
+      <p style="margin: 0; font-size: 16px; opacity: 0.9; font-weight: 400">Loading your experience...</p>
+
+      <style>
+        @keyframes spin-wheel {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        #initial-loading-screen.fade-out {
+          opacity: 0;
+          transition: opacity 0.6s ease-out;
+          pointer-events: none;
+        }
+
+        body:has(#initial-loading-screen) {
+          overflow: hidden;
+        }
+      </style>
+
+      <script>
+        // Ensure smooth removal when app initializes
+        document.addEventListener("DOMContentLoaded", function () {
+          // Fallback removal after 10 seconds to prevent stuck loading screen
+          setTimeout(function () {
+            const loadingScreen = document.getElementById("initial-loading-screen");
+            if (loadingScreen && loadingScreen.parentNode) {
+              loadingScreen.classList.add("fade-out");
+              setTimeout(() => loadingScreen.remove(), 300);
+            }
+          }, 10000);
+        });
+
+        // Improve perceived performance by fading out smoothly
+        window.addEventListener("DOMContentLoaded", function () {
+          // Give the app a moment to start rendering
+          const checkAngularReady = setInterval(function () {
+            const loadingScreen = document.getElementById("initial-loading-screen");
+            // Check if Angular has started rendering (wil-root has children other than loading screen)
+            const wilHeader = document.querySelector("wil-header");
+            if (wilHeader) {
+              clearInterval(checkAngularReady);
+              if (loadingScreen) {
+                loadingScreen.classList.add("fade-out");
+                setTimeout(() => loadingScreen.remove(), 300);
+              }
+            }
+          }, 500);
+        });
+      </script>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Wheel of Life Tool",
+        "operatingSystem": "All",
+        "applicationCategory": "WebApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "A free interactive Wheel of Life generator, online tool for coaches and self-reflection. Customize, visualize, and export your results.",
+        "url": "https://resourcesof.life"
+      }
+    </script>
+    <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+  </body>
+</html>

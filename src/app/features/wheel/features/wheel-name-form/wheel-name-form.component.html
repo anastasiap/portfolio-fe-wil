@@ -1,0 +1,28 @@
+<form [formGroup]="wheelForm" class="wheel-name__form" data-testid="wheel-name-form">
+  <mat-form-field class="wheel-name__field" appearance="outline" data-testid="wheel-name-field">
+    <mat-label data-testid="wheel-name-label">Wheel Name</mat-label>
+    <input
+      matInput
+      formControlName="name"
+      placeholder="Fitness Assessment, Wellbeing, Quarterly check..."
+      data-testid="wheel-name-input"
+      maxlength="200"
+      />
+
+    @if (wheelForm.controls.name.hasError('required')) {
+      <mat-error data-testid="wheel-name-required-error">
+        Wheel name is required
+      </mat-error>
+    }
+    @if (wheelForm.controls.name.hasError('maxlength')) {
+      <mat-error data-testid="wheel-name-maxlength-error">
+        name must be 100 characters or less
+      </mat-error>
+    }
+    @if (wheelForm.controls.name.hasError('noNewWheelName')) {
+      <mat-error data-testid="wheel-name-generic-error">
+        {{ wheelForm.controls.name.getError("noNewWheelName")?.message }}
+      </mat-error>
+    }
+  </mat-form-field>
+</form>

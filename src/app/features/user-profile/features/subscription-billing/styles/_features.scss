@@ -1,0 +1,40 @@
+.features-list,
+.management-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    position: relative;
+    padding: 0.75rem 0 0.75rem 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 1.6;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &::before {
+      content: "âœ“";
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      color: #2e7d32;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+  }
+}
+
+.management-list {
+  &__item {
+    &::before {
+      content: "i";
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+  }
+}

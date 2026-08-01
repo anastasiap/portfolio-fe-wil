@@ -1,0 +1,31 @@
+<div class="c-editing-icons">
+  <button type="button" class="c-editing-icons__icon-wrapper" aria-label="Delete category" (click)="alert.emit()">
+    <mat-icon svgIcon="wil-delete" aria-hidden="true"></mat-icon>
+  </button>
+
+  <button
+    type="button"
+    class="c-editing-icons__icon-wrapper"
+    [ngClass]="{ 'c-editing-icons__active': isColorEditMode }"
+    aria-label="Change category color"
+    [attr.aria-pressed]="isColorEditMode"
+    (click)="toggleColorPicker.emit()"
+  >
+    <mat-icon svgIcon="wil-color" aria-hidden="true"></mat-icon>
+  </button>
+
+  <button
+    type="button"
+    class="c-editing-icons__icon-wrapper"
+    [ngClass]="{ 'c-editing-icons__active': isEditMode }"
+    [attr.aria-label]="isEditMode ? 'Save category changes' : 'Edit category'"
+    [attr.aria-pressed]="isEditMode"
+    (click)="isEditMode ? saveChanges($event) : toggleEditMode.emit()"
+  >
+    @if (!isEditMode) {
+    <mat-icon svgIcon="wil-edit" aria-hidden="true"></mat-icon>
+    } @if (isEditMode) {
+    <mat-icon svgIcon="wil-check" aria-hidden="true"></mat-icon>
+    }
+  </button>
+</div>

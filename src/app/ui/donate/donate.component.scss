@@ -1,0 +1,60 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 60px auto 0;
+
+  .donate-container {
+    max-width: 780px;
+  }
+
+  .title {
+    color: #818181;
+  }
+
+  .text {
+    padding: 0 10px;
+    margin-top: 0;
+  }
+
+  .img-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 90px;
+    max-width: 120px;
+  }
+
+  .img-container img {
+    width: 100%;
+  }
+
+  .donate-button-container {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    margin-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .img-container {
+    max-width: 150px;
+  }
+
+  .donate-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 55px;
+  }
+
+  .donate-button-container {
+    margin-top: 25px;
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,56 @@
+<div class="modal payment-method-modal" data-testid="payment-method-modal">
+  <div class="modal__header" data-testid="payment-method-modal-header">
+    <h2 class="modal__title" data-testid="payment-method-modal-title">Start your {{ data.planDisplayName }} plan</h2>
+    <button
+      class="modal__close"
+      (click)="onClose()"
+      [disabled]="isLoading"
+      data-testid="payment-method-modal-close"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content" data-testid="payment-method-modal-content">
+    <div class="payment-method-modal__plan-summary" data-testid="payment-method-modal-plan-summary">
+      <div class="payment-method-modal__plan-details">
+        <span>{{ data.price }}</span
+        ><span class="sup">.99</span>/ <span>{{ data.subtext }}</span>
+      </div>
+    </div>
+
+    <div class="payment-method-modal__reassurance" data-testid="payment-method-modal-reassurance">
+      <div class="payment-method-modal__reassurance-item" data-testid="reassurance-cancel">
+        <mat-icon class="payment-method-modal__reassurance-icon">check_circle</mat-icon>
+        <span>Cancel anytime</span>
+      </div>
+      <div class="payment-method-modal__reassurance-item" data-testid="reassurance-secure">
+        <mat-icon class="payment-method-modal__reassurance-icon">lock</mat-icon>
+        <span>Secure payment</span>
+      </div>
+    </div>
+
+    @if (errorMessage()) {
+    <div class="payment-method-modal__error" data-testid="payment-method-modal-error">
+      <mat-icon class="payment-method-modal__error-icon">error</mat-icon>
+      <p class="payment-method-modal__error-text">{{ errorMessage() }}</p>
+    </div>
+    }
+
+    <div class="payment-method-modal__actions" data-testid="payment-method-modal-actions">
+      <wil-cta-button
+        [disabled]="isLoading"
+        [ctaText]="'Pay With Card'"
+        (ctaClick)="onPayWithCard()"
+        [style]="'primary'"
+        [size]="'large'"
+        data-testid="payment-method-modal-stripe-button"
+      ></wil-cta-button>
+    </div>
+
+    <div class="payment-method-modal__cancel" data-testid="payment-method-modal-cancel">
+      <button mat-button (click)="onClose()" [disabled]="isLoading" data-testid="payment-method-modal-cancel-button">Cancel</button>
+    </div>
+  </div>
+</div>

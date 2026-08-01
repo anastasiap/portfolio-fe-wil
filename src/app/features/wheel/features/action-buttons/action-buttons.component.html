@@ -1,0 +1,207 @@
+@if (categories$ | async; as categories) { @if (config(); as buttonConfig) {
+<div class="action-buttons-container" data-testid="action-buttons-container">
+  <div class="action-buttons-container__session-buttons">
+    @if (buttonConfig.showFocus) {
+    <div class="action-button" data-testid="action-buttons-focus-wrapper">
+      <button
+        (click)="setFocus()"
+        [disabled]="categories.length === 0"
+        type="button"
+        class="btn btn--primary circle"
+        data-testid="action-buttons-focus-button"
+      >
+        <mat-icon data-testid="action-buttons-focus-icon">remove_red_eye</mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-focus-label">{{ "focus" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showResetMarks) {
+    <div class="action-button" data-testid="action-buttons-reset-marks-wrapper">
+      <button
+        (click)="alertResetMarks()"
+        [disabled]="categories.length === 0"
+        type="button"
+        class="btn btn--primary circle"
+        data-testid="action-buttons-reset-marks-button"
+      >
+        <mat-icon
+          class="action-button__icon"
+          svgIcon="wil-reset-marks"
+          aria-hidden="true"
+          data-testid="action-buttons-reset-marks-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-reset-marks-label">{{ "resetMarks" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showDropChanges) {
+    <div class="action-button" data-testid="action-buttons-reset-wheel-wrapper">
+      <button (click)="alertResetWheel()" type="button" class="btn btn--primary circle" data-testid="action-buttons-reset-wheel-button">
+        <mat-icon
+          class="action-button__icon"
+          svgIcon="wil-reset-wheel"
+          aria-hidden="true"
+          data-testid="action-buttons-reset-wheel-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-reset-wheel-label">{{ "resetWheel" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showDownload) {
+    <div class="action-button" data-testid="action-buttons-download-wrapper">
+      <button
+        (click)="onDownloadClick()"
+        [disabled]="categories.length === 0"
+        type="button"
+        class="btn btn--primary circle"
+        data-testid="action-buttons-download-button"
+      >
+        <mat-icon
+          class="action-button__icon"
+          svgIcon="wil-download"
+          aria-hidden="true"
+          data-testid="action-buttons-download-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-download-label">{{ downloadBtnLabel() | translate }}</label>
+    </div>
+    } @if (buttonConfig.showSaveResults) {
+    <div class="action-button" data-testid="action-buttons-save-result-wrapper">
+      <button
+        (click)="saveResults()"
+        type="button"
+        class="btn btn--primary circle"
+        [ngClass]="{
+          locked: type() === 'noAuth',
+          'btn--active': type() !== 'noAuth' && (hasAllScores$ | async) && !disableSaveWheelButton()
+        }"
+        [disabled]="type() !== 'noAuth' && (hasAllScores$ | async) === false"
+        data-testid="action-buttons-save-result-button"
+      >
+        <mat-icon
+          class="action-button__icon"
+          svgIcon="wil-done"
+          aria-hidden="true"
+          data-testid="action-buttons-save-result-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-save-result-label">{{
+        saveResultBtnLabel() | translate
+      }}</label>
+    </div>
+    }
+  </div>
+
+  <div class="action-buttons-container__management-buttons">
+    @if (buttonConfig.showAddCategory) {
+    <div class="action-button button-add" data-testid="action-buttons-add-wrapper">
+      <button (click)="addCategory()" type="button" class="btn btn--primary circle" data-testid="action-buttons-add-button">
+        <mat-icon class="action-button__icon" svgIcon="wil-add" aria-hidden="true" data-testid="action-buttons-add-icon"></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-add-label">{{ "addCat" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showSaveCategories) {
+    <div class="action-button" data-testid="action-buttons-save-categories-wrapper">
+      <button
+        (click)="saveCategories()"
+        type="button"
+        class="btn btn--primary circle locked"
+        data-testid="action-buttons-save-categories-button"
+      >
+        <mat-icon
+          class="action-button__icon"
+          svgIcon="wil-save-categories"
+          aria-hidden="true"
+          data-testid="action-buttons-save-categories-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-save-categories-label">{{
+        "saveCategories" | translate
+      }}</label>
+    </div>
+    } @if (buttonConfig.showSend) {
+    <div class="action-button" data-testid="action-buttons-send-wrapper">
+      <button (click)="send()" type="button" class="btn btn--primary circle" data-testid="action-buttons-send-button">
+        <mat-icon data-testid="action-buttons-send-icon">send</mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-send-label">{{ "send" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showSaveWheel) {
+    <div class="action-button" data-testid="action-buttons-save-wheel-wrapper">
+      <button
+        (click)="saveWheel.emit()"
+        type="button"
+        class="btn btn--primary circle"
+        [ngClass]="{
+          'btn--active': (hasUnsavedWheelChanges$ | async) && !disableSaveWheelButton()
+        }"
+        [disabled]="disableSaveWheelButton()"
+        data-testid="action-buttons-save-wheel-button"
+      >
+        <mat-icon
+          class="action-button__icon action-button__icon--small action-button__icon--success"
+          svgIcon="wil-check"
+          aria-hidden="true"
+          data-testid="action-buttons-save-wheel-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-save-wheel-label">{{ "save" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showCancelEditsWheel) {
+    <div class="action-button" data-testid="action-buttons-cancel-edits-wheel-wrapper">
+      <button
+        (click)="cancelEditWheel()"
+        type="button"
+        class="btn btn--primary circle"
+        data-testid="action-buttons-cancel-edits-wheel-button"
+      >
+        <mat-icon
+          class="action-button__icon action-button__icon--large"
+          svgIcon="wil-close"
+          aria-hidden="true"
+          data-testid="action-buttons-cancel-edits-wheel-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-cancel-edits-wheel-label">{{ "done" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showEditWheel) {
+    <div class="action-button" data-testid="action-buttons-edit-wheel-wrapper">
+      <button (click)="editWheel()" type="button" class="btn btn--primary circle" data-testid="action-buttons-edit-wheel">
+        <mat-icon
+          class="action-button__icon action-button__icon--small"
+          svgIcon="wil-edit"
+          aria-hidden="true"
+          data-testid="action-buttons-edit-wheel-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-edit-wheel-label">{{ "editTheWheel" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showAddWheel) {
+    <div class="action-button" data-testid="action-buttons-add-wheel-wrapper">
+      <button (click)="createNewWheel()" type="button" class="btn btn--primary circle" data-testid="action-buttons-add-wheel-button">
+        <mat-icon data-testid="action-buttons-add-wheel-icon">add_circle_outline</mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-add-wheel-label">{{ "addNewWheel" | translate }}</label>
+    </div>
+    } @if (buttonConfig.showAddDefaultWheel) {
+    <div class="action-button" data-testid="use-default-wheel-wrapper">
+      <button (click)="createDefaultWheel()" type="button" class="btn btn--primary circle" data-testid="use-default-wheel-button">
+        <mat-icon data-testid="use-default-wheel-icon">settings</mat-icon>
+      </button>
+      <p class="action-button__label" data-testid="use-default-wheel-label">
+        {{ "useDefaultWheel" | translate }}
+      </p>
+    </div>
+    } @if (buttonConfig.showDeleteWheel) {
+    <div class="action-button" data-testid="action-buttons-delete-wheel-wrapper">
+      <button (click)="deleteWheel()" type="button" class="btn btn--primary circle" data-testid="action-buttons-delete-wheel-button">
+        <mat-icon
+          class="action-button__icon action-button__icon--small"
+          svgIcon="wil-delete"
+          aria-hidden="true"
+          data-testid="action-buttons-delete-wheel-icon"
+        ></mat-icon>
+      </button>
+      <label class="action-button__label" for="" data-testid="action-buttons-delete-wheel-label">{{ "deleteWheel" | translate }}</label>
+    </div>
+    }
+  </div>
+</div>
+} }

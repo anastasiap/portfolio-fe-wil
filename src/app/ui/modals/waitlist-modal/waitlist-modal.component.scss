@@ -1,0 +1,149 @@
+@import "../../../../styles/variables";
+
+.waitlist-modal {
+  width: 100%;
+
+  &__header {
+    position: relative;
+    padding: 2rem 2rem 1rem;
+    color: black;
+  }
+
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__field {
+    width: 100%;
+
+    .mat-mdc-form-field-outline {
+      border-radius: $radius-sm;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      border-radius: $radius-sm;
+    }
+  }
+
+  &__error {
+    background: #ffeaea;
+    border: 1px solid #ff6b6b;
+    border-radius: $radius-sm;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #d63031;
+    line-height: 1.4;
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__submit-button {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: $radius-sm;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+
+    &:hover:not(:disabled) {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+
+    &:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+  }
+
+  &__loading-icon {
+    animation: spin 1s linear infinite;
+  }
+
+  &__success {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__success-icon {
+    font-size: 48px;
+    color: #28a745;
+  }
+
+  &__success-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+
+  &__success-message {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  &__close-final-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: $radius-sm;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+
+    &:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

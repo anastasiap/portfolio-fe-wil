@@ -1,0 +1,65 @@
+@import 'src/styles/variables';
+
+:host {
+  display: block;
+}
+
+.register-free-account {
+  padding: 2rem;
+
+  &__intro {
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    margin: 0 0 0.75rem;
+    color: #1565c0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0 0 1rem;
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  &__description {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #555;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1fr);
+    gap: 2rem;
+    align-items: start;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  &__form {
+    border: 1px solid #e0e0e0;
+    border-radius: $radius-sm;
+    background: #fff;
+  }
+
+  @media (max-width: 900px) {
+    padding: 1.25rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__content {
+      grid-template-columns: 1fr;
+    }
+  }
+}

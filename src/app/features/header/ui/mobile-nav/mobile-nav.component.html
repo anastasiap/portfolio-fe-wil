@@ -1,0 +1,77 @@
+<div class="header__mobile-menu" [class.header__mobile-menu--open]="isOpen()" data-testid="header-mobile-menu">
+  <nav class="header__mobile-nav">
+    @if (shouldRenderStandardNav()) {
+      @for (link of links(); track link.testId) {
+        @if (isRouteLink(link)) {
+          <a
+            [routerLink]="link.route"
+            class="header__mobile-nav-link"
+            [class.accent]="link.className"
+            [attr.data-testid]="'mobile-' + link.testId"
+            routerLinkActive="header__mobile-nav-link--active"
+            [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+            (click)="closeMenu()"
+          >
+            {{ link.label | translate }}
+          </a>
+        } @else {
+          @switch (link.action) {
+            @case ("logout") {
+              <button
+                class="header__mobile-nav-button"
+                (click)="handleNavAction(link.action)"
+                [attr.data-testid]="'mobile-' + link.testId"
+              >
+                {{ link.label | translate }}
+              </button>
+            }
+
+            @case ("language") {
+              <div class="header__mobile-language-switcher" data-testid="mobile-header-navigation-language-switcher">
+                <mat-select
+                  [value]="locale()"
+                  (selectionChange)="handleLocaleChange($event)"
+                  data-testid="mobile-header-navigation-language-switcher-mat-select"
+                >
+                  @for (language of languages(); track language) {
+                    <mat-option [value]="language">
+                      {{ labels()[language] }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </div>
+            }
+
+            @case ("login") {
+              <button
+                class="header__mobile-nav-button"
+                (click)="handleNavAction(link.action)"
+                [attr.data-testid]="'mobile-' + link.testId"
+              >
+                {{ link.label | translate }}
+              </button>
+            }
+          }
+        }
+      }
+    } @else {
+      <a
+        routerLink="app/account/profile"
+        class="header__mobile-nav-link"
+        [attr.data-testid]="'mobile-subscription-canceled-nav-profile'"
+        routerLinkActive="header__mobile-nav-link--active"
+        (click)="closeMenu()"
+      >
+        {{ "profile" | translate }}
+      </a>
+
+      <button
+        class="header__mobile-nav-button"
+        (click)="handleNavAction('logout')"
+        [attr.data-testid]="'mobile-subscription-canceled-nav-logout'"
+      >
+        {{ "logout" | translate }}
+      </button>
+    }
+  </nav>
+</div>

@@ -1,0 +1,58 @@
+@use "src/styles/variables.scss" as *;
+
+.download-modal {
+  &__biggest-change {
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+    border: 1px solid #e9ecef;
+    border-radius: $radius-sm;
+    position: relative;
+  }
+
+  &__biggest-change-icon {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    line-height: 1.5;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  &__biggest-change-icon--increase {
+    color: var(--mdc-theme-success, #2e7d32);
+  }
+
+  &__biggest-change-icon--decrease {
+    color: var(--mdc-theme-error, $primary-blue);
+  }
+
+  &__preview-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #545454;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    font-family: "Didact Gothic", sans-serif;
+  }
+
+  &__change-item {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  &__change-label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #495057;
+    font-family: "Didact Gothic", sans-serif;
+  }
+
+  &__change-value {
+    font-size: 0.9375rem;
+    color: #adb5bd;
+    font-style: italic;
+    font-family: "Didact Gothic", sans-serif;
+  }
+}

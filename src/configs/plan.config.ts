@@ -1,0 +1,32 @@
+export const PLANS: PlanCardData[] = [
+  {
+    headerText: 'Free',
+    price: '',
+    priceSubtext: 'per month',
+    planType: 'Free',
+    features: ['Create 5 Wheels', 'Set Focus Categories', 'Add Reflection Notes', 'View In-Depth Analytics'],
+    ctaButtonText: 'Try for Free',
+    benefits: 'For individual use',
+    isHighlighted: true,
+  },
+  {
+    headerText: 'Personal — $5.99 / m',
+    price: '$5.99',
+    priceSubtext: 'per month',
+    planType: 'Personal',
+    features: ['Create Unlimited Wheels', 'Set Focus Categories', 'Add Reflection Notes', 'View In-Depth Analytics'],
+    ctaButtonText: 'Choose Personal',
+    benefits: 'For individual use',
+    isHighlighted: false,
+  },
+  {
+    headerText: 'Professional',
+    price: '$37.99',
+    priceSubtext: 'per month. *Pilot rate for early birds.',
+    planType: 'Professional',
+    features: ['Create Environment for Each Client', 'Add Reflection Notes', 'View In-Depth Session Analytics', 'Set Branded page'],
+    benefits: 'Under construction',
+    ctaButtonText: "I'm interested",
+    isHighlighted: false,
+  },
+];

@@ -1,0 +1,26 @@
+<div class="user-account" data-testid="user-account-container">
+  <div class="user-account__layout">
+    <!-- Left Navigation -->
+    <nav class="user-account__nav" data-testid="user-account-nav">
+      <mat-nav-list class="user-account__nav-list">
+        @for (item of navigationItems; track item.path) {
+        <a
+          mat-list-item
+          [routerLink]="item.path"
+          routerLinkActive="user-account__nav-item--active"
+          class="user-account__nav-item"
+          [attr.data-testid]="item.testId"
+        >
+          <mat-icon matListItemIcon class="user-account__nav-icon">{{ item.icon }}</mat-icon>
+          <span matListItemTitle class="user-account__nav-label">{{ item.label }}</span>
+        </a>
+        }
+      </mat-nav-list>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="user-account__content" data-testid="user-account-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

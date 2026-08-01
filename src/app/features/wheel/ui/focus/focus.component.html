@@ -1,0 +1,16 @@
+@if ((focusedCategories$ | async)?.length) {
+  <div class="focus">
+    <h3 class="focus__title">Focus</h3>
+    <div class="focus__chips">
+      @for (category of focusedCategories$ | async; track trackByCategory($index, category)) {
+        <span
+          class="focus__chip"
+          [style.background-color]="category.color"
+          [attr.data-testid]="'focus-badge-' + category.id"
+          >
+          {{ category.name }}
+        </span>
+      }
+    </div>
+  </div>
+}

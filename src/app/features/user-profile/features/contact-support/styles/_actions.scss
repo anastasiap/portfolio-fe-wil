@@ -1,0 +1,11 @@
+.contact-support {
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  &__submit-button {
+    max-width: 200px;
+  }
+}

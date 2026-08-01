@@ -1,0 +1,40 @@
+@if (vm(); as viewModel) {
+  <div
+    class="wheel-switcher"
+    [class.wheel-switcher--single]="!viewModel.hasMultipleWheels"
+  >
+    @if (viewModel.availableWheels.length && !viewModel.hasMultipleWheels) {
+      <div class="wheel-switcher__single-wheel">
+        <span class="wheel-switcher__title" data-testid="wheel-switcher-title">
+          {{ viewModel.displayTitle }}
+        </span>
+      </div>
+    }
+
+    @if (viewModel.hasMultipleWheels) {
+      <mat-select
+        [value]="viewModel.currentWheelId"
+        (selectionChange)="onWheelSelectionChange($event)"
+        class="wheel-switcher__select"
+        panelClass="wheel-switcher__panel"
+        placeholder="Select wheel"
+        [attr.aria-label]="'Current wheel: ' + viewModel.displayTitle"
+        data-testid="wheel-switcher-select"
+      >
+        @for (wheel of viewModel.availableWheels; track wheel.id) {
+          <mat-option
+            [value]="wheel.id"
+            class="wheel-switcher__option"
+            [class.wheel-switcher__current-option]="wheel.id === viewModel.currentWheelId"
+            [attr.data-testid]="'wheel-option-' + wheel.id"
+            [matTooltip]="wheel.name"
+          >
+            <div class="wheel-switcher__option-content">
+              <span class="wheel-switcher__wheel-name">{{ wheel.name }}</span>
+            </div>
+          </mat-option>
+        }
+      </mat-select>
+    }
+  </div>
+}

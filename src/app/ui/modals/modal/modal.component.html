@@ -1,0 +1,19 @@
+<div class="modal" data-testid="modal">
+  <div class="modal__header" data-testid="modal-header">
+    <h2 class="modal__title" data-testid="modal-title">{{ title() }}</h2>
+    <button
+      mat-icon-button
+      class="modal__close"
+      (click)="closeModal.emit()"
+      [disabled]="isLoading"
+      data-testid="modal-close"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal__content" data-testid="modal-content">
+    <ng-content></ng-content>
+  </div>
+</div>

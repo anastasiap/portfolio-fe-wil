@@ -1,0 +1,63 @@
+@import 'src/styles/variables';
+
+.gdpr-privacy {
+  padding: 2rem;
+
+  &__title {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  &__description {
+    margin: 0 0 2rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  &__card {
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__card-description {
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    color: #666;
+  }
+
+  &__export-info {
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: $radius-xs;
+    margin-top: 1rem;
+  }
+
+  &__expires-info {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .button {
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gdpr-privacy {
+    padding: 1rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__export-info {
+      padding: 0.75rem;
+    }
+  }
+}

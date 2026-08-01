@@ -1,0 +1,16 @@
+node_modules
+dist
+coverage
+docs
+agents-docs
+.git
+.github
+.vscode
+.DS_Store
+npm-debug.log
+
+e2e/.auth
+.idea
+.angular
+test-results
+*.local

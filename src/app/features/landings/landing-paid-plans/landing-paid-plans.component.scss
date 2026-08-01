@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+.landing-paid-plans {
+  padding: 0 2rem 2rem;
+  // min-height: 100vh;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+}

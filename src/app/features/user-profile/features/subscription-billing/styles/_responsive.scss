@@ -1,0 +1,27 @@
+@media (max-width: 768px) {
+  .subscription-billing {
+    padding: 1rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__cards {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .plan-card,
+  .features-card {
+    padding: 1.5rem;
+  }
+
+  .plan-info__name {
+    font-size: 1.25rem;
+  }
+
+  .plan-pricing__price {
+    font-size: 1.5rem;
+  }
+}

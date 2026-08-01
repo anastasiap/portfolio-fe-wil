@@ -1,0 +1,185 @@
+@import 'src/styles/variables';
+
+.focus-modal {
+  max-height: 80vh;
+  animation: modalSlideIn 0.2s ease-out;
+
+  &__body {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  &__description {
+    margin: 0 0;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  &__categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__category {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+
+    &:hover {
+      border-color: #dee2e6;
+      background-color: #f8f9fa;
+    }
+
+    &--selected {
+      border-color: #007bff;
+      background-color: #f0f8ff;
+    }
+  }
+
+  &__checkbox {
+    margin-right: 1rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #007bff;
+    cursor: pointer;
+  }
+
+  &__category-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  &__category-color {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: $radius-half;
+    margin-right: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  &__category-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__category-name {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.25rem;
+  }
+
+  &__category-desc {
+    font-size: 0.875rem;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+
+  &__btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+
+    &--secondary {
+      background-color: #6c757d;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: #5a6268;
+      }
+    }
+
+    &--primary {
+      background-color: #007bff;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: #0056b3;
+      }
+
+      &:disabled {
+        background-color: #e9ecef;
+        color: #6c757d;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .focus-modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .focus-modal {
+    max-height: 90vh;
+
+    &__header {
+      padding: 1rem;
+    }
+
+    &__body {
+      padding: 1rem;
+    }
+
+    &__footer {
+      padding: 1rem;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .focus-modal__btn {
+        width: 100%;
+      }
+    }
+
+    &__category {
+      padding: 0.75rem;
+    }
+
+    &__category-content {
+      gap: 10px;
+      align-items: center;
+    }
+
+    &__category-color {
+      margin-bottom: 0.5rem;
+      margin-right: 0;
+    }
+  }
+}

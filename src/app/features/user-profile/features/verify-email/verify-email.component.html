@@ -1,0 +1,91 @@
+<div class="verify-email">
+  <div class="verify-email__container">
+    @switch (verificationViewModel().state) {
+    @case ('verifying') {
+      <div class="verify-email__state verify-email__state--loading" data-testid="verification-loading">
+        <mat-progress-spinner class="verify-email__spinner" diameter="48" mode="indeterminate"> </mat-progress-spinner>
+        <h1 class="verify-email__title">Verifying Your Email</h1>
+        <p class="verify-email__message">Please wait while we verify your email address...</p>
+      </div>
+    }
+    @case ('success') {
+      <div class="verify-email__state verify-email__state--success" data-testid="verification-success">
+        <mat-icon class="verify-email__icon verify-email__icon--success">check_circle</mat-icon>
+        <h1 class="verify-email__title">Email Verified Successfully!</h1>
+        <p class="verify-email__message">Your email address has been verified. You can now access all features of your account.</p>
+
+        <div class="verify-email__actions">
+          <wil-cta-button
+            (ctaClick)="navigateToHome()"
+            [style]="'primary'"
+            [size]="'large'"
+            [ctaText]="'Create Your First Wheel'"
+            data-testid="button-go-to-home"
+          >
+          </wil-cta-button>
+          or
+          <wil-cta-button
+            (ctaClick)="navigateToProfile()"
+            [style]="'secondary'"
+            [size]="'large'"
+            [ctaText]="'Go to Profile'"
+            data-testid="button-go-to-profile"
+          >
+          </wil-cta-button>
+        </div>
+      </div>
+    }
+    @case ('error') {
+      <div class="verify-email__state verify-email__state--error" data-testid="verification-error">
+        <mat-icon class="verify-email__icon verify-email__icon--error">error</mat-icon>
+        <h1 class="verify-email__title">Verification Failed</h1>
+        <p class="verify-email__message">{{ verificationViewModel().message }}</p>
+
+        <div class="verify-email__actions">
+          @if (isAuthenticated()) {
+          <wil-cta-button
+            (ctaClick)="onResendVerification()"
+            [style]="'primary'"
+            [size]="'large'"
+            [ctaText]="'Resend Verification Email'"
+            data-testid="button-resend-verification"
+          >
+          </wil-cta-button>
+          }
+
+          <wil-cta-button
+            (ctaClick)="navigateToHome()"
+            [style]="'secondary'"
+            [size]="'large'"
+            [ctaText]="'Go to Home'"
+            data-testid="button-go-to-home-error"
+          >
+          </wil-cta-button>
+        </div>
+      </div>
+    }
+    @case ('warning') {
+      <div class="verify-email__state verify-email__state--warning" data-testid="verification-warning">
+        <mat-icon class="verify-email__icon verify-email__icon--warning">warning</mat-icon>
+        <h1 class="verify-email__title">Verification Failed</h1>
+        <p class="verify-email__message">
+          {{ verificationViewModel().message }}
+        </p>
+
+        <div class="verify-email__actions">
+          @if (isAuthenticated()) {
+          <wil-cta-button
+            (ctaClick)="onResendVerification()"
+            [style]="'primary'"
+            [size]="'large'"
+            [ctaText]="'Resend Verification Email'"
+            data-testid="button-resend-verification"
+          >
+          </wil-cta-button>
+          }
+        </div>
+      </div>
+    }
+    }
+  </div>
+</div>

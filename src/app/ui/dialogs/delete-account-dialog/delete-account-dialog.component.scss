@@ -1,0 +1,77 @@
+@import 'src/styles/variables';
+
+.delete-account-dialog {
+  min-width: 500px;
+
+  &__step1,
+  &__step2 {
+    display: block;
+  }
+
+  &__warnings {
+    margin: 0;
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.75rem;
+      color: rgba(0, 0, 0, 0.7);
+      line-height: 1.4;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: #fd7f28; // Warning color
+      }
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  &__checkbox {
+    .mat-checkbox-label {
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 500;
+    }
+  }
+
+  &__text-field {
+    width: 100%;
+
+    .mat-hint {
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+  }
+
+  &__error {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #ffebee;
+    border: 1px solid #ef5350;
+    border-radius: $radius-xs;
+
+    p {
+      margin: 0;
+      color: #c62828;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Dialog action spacing
+mat-dialog-actions {
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+// Progress bar styling
+mat-progress-bar[data-testid="delete-progress-bar"] {
+  margin: 1rem 0 0.5rem 0;
+}

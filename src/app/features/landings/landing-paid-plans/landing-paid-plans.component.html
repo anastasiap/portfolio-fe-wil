@@ -1,0 +1,16 @@
+<div class="landing-paid-plans" data-testid="landing-paid-plans-container">
+  <div class="landing-paid-plans__header" data-testid="landing-paid-plans-header">
+    <h1 class="landing-paid-plans__title" data-testid="landing-paid-plans-title">Pricing & Plans</h1>
+    <p class="landing-paid-plans__description" data-testid="landing-paid-plans-description">
+      Get a real picture of life balance — and track your and your clients progress over time
+    </p>
+  </div>
+
+  <div class="landing-paid-plans__content" data-testid="landing-paid-plans-content">
+    <div class="landing-paid-plans__plans-grid" data-testid="landing-paid-plans-grid">
+      @for (plan of plans; track plan.headerText) {
+      <wil-plan-card [planData]="plan" (ctaClick)="onPlanCtaClick($event)" data-testid="landing-paid-plan-card" />
+      }
+    </div>
+  </div>
+</div>

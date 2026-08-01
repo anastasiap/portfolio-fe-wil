@@ -1,0 +1,139 @@
+@import 'src/styles/variables.scss';
+
+.account-profile {
+  padding: 2rem;
+  max-width: 800px;
+
+  &__title {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  &__normal-profile {
+    h1 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+  }
+
+  &__placeholder {
+    padding: 2rem;
+    background-color: #f5f5f5;
+    border-radius: $radius-sm;
+    margin-top: 1rem;
+
+    p {
+      color: #666;
+      font-style: italic;
+    }
+  }
+
+  &__loading {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+  }
+
+  &__user-info {
+    // Container for user profile information
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: $radius-sm;
+  }
+
+  &__section-title {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__input {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #d0d0d0;
+    border-radius: $radius-xs;
+    transition: all 0.2s ease;
+
+    &.name {
+      text-transform: capitalize;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $current-primary-blue;
+      background-color: #fff;
+    }
+
+    &[readonly] {
+      cursor: not-allowed;
+      background-color: #f5f5f5;
+      color: #666;
+    }
+  }
+
+  &__email-verification {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: -0.5rem;
+    margin-bottom: 0.8rem;
+
+    mat-icon {
+      top: 3px;
+      position: relative;
+    }
+
+    &-btn {
+      max-width: 450px;
+    }
+
+    &--success {
+      display: block;
+      color: var(--success-color, #1b6ec0);
+    }
+
+    &--warning {
+      color: var(--warning-color, #e5880b);
+    }
+  }
+
+  &__no-user {
+    padding: 2rem;
+    text-align: center;
+    color: #999;
+  }
+}

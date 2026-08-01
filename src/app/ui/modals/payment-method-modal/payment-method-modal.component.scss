@@ -1,0 +1,139 @@
+@import 'src/styles/variables.scss';
+
+.payment-method-modal {
+  &__plan-summary {
+    text-align: center;
+  }
+
+  &__plan-details {
+    color: #1b6ec0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    // line-height: 1.4;
+    margin: 0;
+  }
+
+  .sup {
+    font-size: 10px;
+    position: relative;
+    top: -10px;
+    padding-left: 1px;
+  }
+
+  &__reassurance {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 70px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: $radius-sm;
+  }
+
+  &__reassurance-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &__reassurance-icon {
+    color: #4caf50;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__error {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+    border-radius: $radius-xs;
+  }
+
+  &__error-icon {
+    color: #f44336;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &__error-text {
+    margin: 0;
+    font-size: 14px;
+    color: #c62828;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__button {
+    position: relative;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__cancel {
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+  }
+}
+
+// Responsive styles for mobile
+@media (max-width: 599px) {
+  .payment-method-modal {
+    max-width: 100%;
+    width: 100%;
+
+    &__header {
+      padding: 20px 16px 12px;
+    }
+
+    &__title {
+      font-size: 20px;
+    }
+
+    &__content {
+      padding: 20px 16px;
+      gap: 20px;
+    }
+
+    &__plan-details {
+      font-size: 16px;
+    }
+
+    &__button {
+      height: 44px;
+      font-size: 15px;
+    }
+  }
+}
+
+// Material dialog panel override
+::ng-deep .payment-method-modal-panel {
+  max-width: 95vw !important;
+
+  .mat-mdc-dialog-container {
+    padding: 0;
+  }
+
+  @media (max-width: 599px) {
+    max-width: 100vw !important;
+    margin: 16px;
+  }
+}
